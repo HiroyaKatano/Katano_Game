@@ -84,6 +84,5 @@ void UninitPlayer(void);															// ポリゴンの終了処理
 void UpdatePlayer(void);															// ポリゴンの更新処理
 void DrawPlayer(void);																// ポリゴンの描画処理
 PLAYER *GetPlayer(void);
-bool HitPlayer(int nDamage);
 
 #endif

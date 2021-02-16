@@ -18,6 +18,7 @@
 #include "sound.h"
 #include "timer.h"
 #include "result.h"
+#include "goal.h"
 
 //=========================================================================================================================
 // マクロ定義
@@ -48,8 +49,10 @@ HRESULT InitGame(void)
 	// ブロックの初期化
 	InitBlock();
 
+	//// ゴールの初期化
+	//InitGoal();
+
 	// ブロックのセット処理
-	//fopen("map_00.csv", "r");
 	int nCntX = 0, nCntY = 0;
 	char aLine[256];
 	while (fgets(aLine, 256, pFile) != NULL)
@@ -77,14 +80,13 @@ HRESULT InitGame(void)
 				D3DXVECTOR3 pos = D3DXVECTOR3(float((SCREEN_WIDTH_R / MAX_MAPDATA_X) * nCntX), float((SCREEN_HEIGHT_U / MAX_MAPDATA_Y) * nCntY), 0.0f);
 				SetBlock(pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), (SCREEN_WIDTH_R / MAX_MAPDATA_X), (SCREEN_HEIGHT_U / MAX_MAPDATA_Y));
 			}
+			else if (g_aMapData[nCntX][nCntY] == 2)
+			{
+				D3DXVECTOR3 pos = D3DXVECTOR3(float((SCREEN_WIDTH_R / MAX_MAPDATA_X) * nCntX), float((SCREEN_HEIGHT_U / MAX_MAPDATA_Y) * nCntY), 0.0f);
+				SetGoal(pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), (SCREEN_WIDTH_R / MAX_MAPDATA_X), (SCREEN_HEIGHT_U / MAX_MAPDATA_Y));
+			}
 		}
 	}
-
-	//SetBlock(D3DXVECTOR3(SCREEN_WIDTH_L, SCREEN_HEIGTH_U - BLOCK_SIZE_Y / 4, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCREEN_WIDTH_R / 2, BLOCK_SIZE_Y);
-	//SetBlock(D3DXVECTOR3(SCREEN_WIDTH_R * 2 / 3, SCREEN_HEIGTH_U - BLOCK_SIZE_Y / 4, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), SCREEN_WIDTH_R * 1 / 3, BLOCK_SIZE_Y);
-	//SetBlock(D3DXVECTOR3(SCREEN_WIDTH_R / 2 - BLOCK_SIZE_X / 2, SCREEN_HEIGTH_U / 2 + 100, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), BLOCK_SIZE_X, BLOCK_SIZE_Y / 2);
-	//SetBlock(D3DXVECTOR3(SCREEN_WIDTH_R / 2 - BLOCK_SIZE_X / 2, 320 - BLOCK_SIZE_Y / 2, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), BLOCK_SIZE_X, BLOCK_SIZE_Y / 2);
-	//SetBlock(D3DXVECTOR3(SCREEN_WIDTH_R / 2 - BLOCK_SIZE_X / 2 - 200.0f, 320 - BLOCK_SIZE_Y / 2 + 100.0f, 0.0f), D3DXVECTOR3(0.0f, 0.0f, 0.0f), BLOCK_SIZE_X, BLOCK_SIZE_Y / 2);
 
 	PlaySound(SOUND_LABEL_BGM002);
 
@@ -124,6 +126,9 @@ void UninitGame(void)
 	// スコアの終了処理
 	UninitScore();
 
+	//// ゴールの終了処理
+	//UninitGoal();
+
 	// ワイヤーの終了処理
 	UninitWire();
 
@@ -143,9 +148,11 @@ void UninitGame(void)
 void UpdateGame(void)
 {
 	PLAYER *pPlayer;
+	GOAL *pGoal;
 	int nResult = GetResult();
 
 	pPlayer = GetPlayer();
+	pGoal = GetGoal();
 	int nFade = GetFade();
 
 	if (GetKeyboardTrigger(DIK_P) == true)
@@ -172,6 +179,9 @@ void UpdateGame(void)
 		// プレイヤーの更新処理
 		UpdatePlayer();
 
+		//// ゴールの更新処理
+		//UpdateGoal();
+
 		// タイマーの更新処理
 		//UpdateTimer();
 
@@ -183,7 +193,7 @@ void UpdateGame(void)
 
 	
 
-	if (GetKeyboardTrigger(DIK_6) == true && g_bPause == false)
+	if ( GetKeyboardTrigger(DIK_6) == true && g_bPause == false)
 	{
 		if (nFade == FADE_NONE)
 		{
@@ -206,6 +216,9 @@ void DrawGame(void)
 
 		// ワイヤーの描画処理
 		DrawWire();
+
+		//// ゴールの描画処理
+		//DrawGoal();
 
 		// プレイヤーの描画処理
 		DrawPlayer();

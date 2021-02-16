@@ -305,11 +305,6 @@ void UpdateTitle(void)
 		pVtx[6].col = g_colorEnterSign;
 		pVtx[7].col = g_colorEnterSign;
 
-	//pVtx[12].col = g_colorEnterSign;
-	//pVtx[13].col = g_colorEnterSign;
-	//pVtx[14].col = g_colorEnterSign;
-	//pVtx[15].col = g_colorEnterSign;
-
 	// 頂点バッファをアンロックする
 	g_pVtxBuffTitle->Unlock();
 
@@ -327,17 +322,9 @@ void UpdateTitle(void)
 			SetFade(FADE_OUT, MODE_TUTORIAL);
 			g_enterstate = ENTERSTATE_ACTIVE;
 		}
-		//else if (nFade == FADE_NONE && g_posTitleLogoShadow.y >= 250.0f)
-		//{
-		//	SetFade(FADE_OUT, MODE_GAME);
-		//	g_enterstate = ENTERSTATE_ACTIVE;
-		//}
 
 		// タイトルロゴ影
 		g_posTitleLogoShadow.y = 300.0f;
-
-		//// タイトルロゴ
-		//g_posTitleLogo.y = 305.0f;
 	}
 }
 

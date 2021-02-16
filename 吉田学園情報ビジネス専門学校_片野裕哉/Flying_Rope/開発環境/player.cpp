@@ -82,23 +82,6 @@ HRESULT InitPlayer(void)
 	g_player.fHeight = PLAYER_SIZE_Y;
 
 	// 頂点座標の設定
-
-	//pVtx[0].pos.x = g_player.pos.x + sinf(g_player.fAnglePlayer + D3DX_PI * 1.75f) * g_player.fLengthPlayer;
-	//pVtx[0].pos.y = g_player.pos.y + cosf(g_player.fAnglePlayer + D3DX_PI * 1.75f) * g_player.fLengthPlayer;
-	//pVtx[0].pos.z = 0.0f;
-
-	//pVtx[1].pos.x = g_player.pos.x + sinf(D3DX_PI * 1.25f - g_player.fAnglePlayer) * g_player.fLengthPlayer;
-	//pVtx[1].pos.y = g_player.pos.y + cosf(D3DX_PI * 1.25f - g_player.fAnglePlayer) * g_player.fLengthPlayer;
-	//pVtx[1].pos.z = 0.0f;
-
-	//pVtx[2].pos.x = g_player.pos.x + sinf(D3DX_PI * 0.25f - g_player.fAnglePlayer) * g_player.fLengthPlayer;
-	//pVtx[2].pos.y = g_player.pos.y + cosf(D3DX_PI * 0.25f - g_player.fAnglePlayer) * g_player.fLengthPlayer;
-	//pVtx[2].pos.z = 0.0f;
-
-	//pVtx[3].pos.x = g_player.pos.x + sinf(g_player.fAnglePlayer + D3DX_PI * 0.75f) * g_player.fLengthPlayer;
-	//pVtx[3].pos.y = g_player.pos.y + cosf(g_player.fAnglePlayer + D3DX_PI * 0.75f) * g_player.fLengthPlayer;
-	//pVtx[3].pos.z = 0.0f;
-
 	pVtx[0].pos = D3DXVECTOR3(g_player.pos.x - g_player.fWidth, g_player.pos.y, 0.0f);
 	pVtx[1].pos = D3DXVECTOR3(g_player.pos.x - g_player.fWidth, g_player.pos.y - g_player.fHeight, 0.0f);
 	pVtx[2].pos = D3DXVECTOR3(g_player.pos.x + g_player.fWidth, g_player.pos.y, 0.0f);
@@ -157,13 +140,10 @@ void UpdatePlayer(void)
 	PLAYER *pPlayer;
 	BLOCK *pBlock;
 	WIRE *pWire;
-	/*XINPUT_GAMEPAD Gamepad;
-	XINPUT_STATE state;*/
 
 	pPlayer = GetPlayer();
 	pBlock = GetBlock();
 	pWire = GetWire();
-	/*Gamepad = *PXINPUT_GAMEPAD;*/
 
 	// 前回の位置を保存
 	pPlayer->posOld = pPlayer->pos;
@@ -186,12 +166,6 @@ void UpdatePlayer(void)
 			pPlayer->bJump = true;
 		}
 
-		//if (Gamepad.wButtons & XINPUT_GAMEPAD_A)
-		//{
-		//	// A ボタンが押された
-		//	pPlayer->move.y = -PLAYER_JUMP;
-		//	pPlayer->bJump = true;
-		//}
 
 		if (GetKeyboardPress(DIK_W) == true)
 		{
@@ -269,7 +243,6 @@ void UpdatePlayer(void)
 			{
 				if (pWire->bContact == true)
 				{
-					//pPlayer->move.x -= PLAYER_SPD;
 				}
 				else if (pWire->bContact == false)
 				{
@@ -332,13 +305,6 @@ void UpdatePlayer(void)
 			}
 
 
-			//for (int nCntWire = 0; nCntWire < MAX_WIRE; nCntWire++, pWire++)
-			//{
-			//	if (pWire->bContact == true)
-			//	{
-			//	}
-			//}
-			//pWire = GetWire();
 
 			pPlayer->nPatternAnim = pPlayer->nCounterAnim % MAX_PATTERN;
 
@@ -370,24 +336,6 @@ void UpdatePlayer(void)
 			pVtx[2].tex = D3DXVECTOR2(1.0f / TEXTURE_X + PLAY_ANIM, 1.0f / TEXTURE_Y);
 			pVtx[3].tex = D3DXVECTOR2(1.0f / TEXTURE_X + PLAY_ANIM, 0.0f);
 		}
-
-		//if (GetKeyboardPress(DIK_W) == true)
-		//{
-		//	for (int nCntWire = 0; nCntWire < MAX_WIRE; nCntWire++, pWire++)
-		//	{
-		//		if (pWire->bContact == true)
-		//		{
-		//			pPlayer->move.x += (0.0f + (pWire->pos.x - pPlayer->pos.x)) * 0.05f;
-					//pPlayer->move.y += (0.0f + (pWire->pos.y - pPlayer->pos.y)) * 0.05f;
-		//		}
-		//	}
-		//}
-		//pWire = GetWire();
-
-		//if (GetKeyboardPress(DIK_S) == true)
-		//{
-		//	g_player.move.y += PLAYER_SPD;
-		//}
 
 		for (int nCntWire = 0; nCntWire < MAX_WIRE; nCntWire++, pWire++)
 		{
@@ -426,21 +374,7 @@ void UpdatePlayer(void)
 			{
 				pPlayer->move.x += (pWire->pos.x - pPlayer->pos.x) * 0.005f;
 				pPlayer->move.y += (0.0f + (pWire->pos.y - pPlayer->pos.y)) * 0.005f;
-				if (pWire->fHeight >= WIRE_MAX_SIZE_Y)
-				{
-					if (pPlayer->move.y > 0)
-					{
 
-
-						//pPlayer->move.y *= -0.8f;
-
-					}
-					//pPlayer->move.y -= GRAVITY;
-				}
-				else if (pWire->fHeight < WIRE_MAX_SIZE_Y)
-				{
-
-				}
 				pPlayer->move.y += GRAVITY;
 
 				pPlayer->move.x += (0.0f - pPlayer->move.x) * 0.008f;
@@ -494,57 +428,7 @@ void UpdatePlayer(void)
 			pPlayer->move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 		}
 
-		//for (int nCntBlock = 0; nCntBlock < MAX_BLOCK; nCntBlock++, pBlock++)
-		//{
-		//	if (pBlock->bUse == true)
-		//	{
-		//		if (g_player.pos.x + g_player.fWidth > pBlock->pos.x &&
-		//			g_player.pos.x - g_player.fWidth < pBlock->pos.x + pBlock->fWidth)
-		//		{
-		//			if (g_player.posOld.y <= pBlock->pos.y)
-		//			{
-		//				if (g_player.pos.y > pBlock->pos.y)
-		//				{
-		//					g_player.pos.y = pBlock->pos.y - 0.1f;
-		//					g_player.move.y = 0.0f;
-		//					g_player.bJump = false;
-		//				}
-		//			}
-		//			else if (g_player.posOld.y - g_player.fHeight >= pBlock->pos.y + pBlock->fHeight)
-		//			{
-		//				if (g_player.pos.y - g_player.fHeight < pBlock->pos.y + pBlock->fHeight)
-		//				{
-		//					g_player.pos.y = (pBlock->pos.y + pBlock->fHeight) + g_player.fHeight;
-		//					g_player.move.y = 1.0f;
-		//				}
-		//			}
-		//		}
 
-		//		if (g_player.pos.y > pBlock->pos.y &&
-		//			g_player.pos.y - g_player.fHeight < pBlock->pos.y + pBlock->fHeight)
-		//		{
-		//			if (g_player.posOld.x - g_player.fWidth >= pBlock->pos.x + pBlock->fWidth)
-		//			{
-		//				if (g_player.pos.x - g_player.fWidth < pBlock->pos.x + pBlock->fWidth)
-		//				{
-		//					g_player.pos.x = (pBlock->pos.x + pBlock->fWidth) + g_player.fWidth + 0.1f;
-		//					g_player.move.x = 0.0f;
-		//				}
-		//			}
-		//			else if (g_player.posOld.x + g_player.fWidth <= pBlock->pos.x)
-		//			{
-		//				if (g_player.pos.x + g_player.fWidth > pBlock->pos.x)
-		//				{
-		//					g_player.pos.x = pBlock->pos.x - g_player.fWidth - 0.1f;
-		//					g_player.move.x = 0.0f;
-		//				}
-		//			}
-		//		}
-		//	}
-		//}
-
-		// プレイヤーとブロックとの接触時の処理
-		//CollisionBlock(&g_player.pos, &g_player.posOld, &g_player.move, g_player.fWidth, g_player.fHeight);
 		if (CollisionBlock(&pPlayer->pos, &pPlayer->posOld, &pPlayer->move, pPlayer->fWidth, pPlayer->fHeight) == true)
 		{
 			pPlayer->bJump = false;
@@ -554,23 +438,6 @@ void UpdatePlayer(void)
 			pPlayer->bJump = true;
 		}
 
-		//// 回転
-		//if (GetKeyboardPress(DIK_Q) == true)
-		//{
-		//	g_rotplayer.z += 0.1f;
-		//	if (g_rotplayer.z > D3DX_PI)
-		//	{
-		//		g_rotplayer.z -= D3DX_PI * PLAYER_SPD;
-		//	}
-		//}
-		//else if (GetKeyboardPress(DIK_E) == true)
-		//{
-		//	g_rotplayer.z -= 0.1f;
-		//	if (g_rotplayer.z > D3DX_PI)
-		//	{
-		//		g_rotplayer.z -= D3DX_PI * PLAYER_SPD;
-		//	}
-		//}
 
 	}
 	else if (pPlayer->state == PLAYERSTATE_WAIT)
@@ -599,27 +466,6 @@ void UpdatePlayer(void)
 			}
 		}
 	}
-
-	//pPlayer->fLengthPlayer = sqrtf(PLAYER_SIZE_VERTEX_X * PLAYER_SIZE_VERTEX_X + PLAYER_SIZE_Y * PLAYER_SIZE_Y);
-
-	//pPlayer->fAnglePlayer = atan2f(PLAYER_SIZE_VERTEX_X, PLAYER_SIZE_Y);
-
-	// 頂点座標の更新
-	//pVtx[0].pos.x = pPlayer->pos.x + sinf(pPlayer->rotPlayer.z + -D3DX_PI / 2) * PLAYER_SIZE_VERTEX_X;
-	//pVtx[0].pos.y = pPlayer->pos.y + cosf(pPlayer->rotPlayer.z + -D3DX_PI / 2) * PLAYER_SIZE_VERTEX_X;
-	//pVtx[0].pos.z = 0.0f;
-
-	//pVtx[1].pos.x = pPlayer->pos.x - sinf(pPlayer->rotPlayer.z + pPlayer->fAnglePlayer) * pPlayer->fLengthPlayer;
-	//pVtx[1].pos.y = pPlayer->pos.y - cosf(pPlayer->rotPlayer.z + pPlayer->fAnglePlayer) * pPlayer->fLengthPlayer;
-	//pVtx[1].pos.z = 0.0f;
-
-	//pVtx[2].pos.x = pPlayer->pos.x + sinf(pPlayer->rotPlayer.z + D3DX_PI / 2) * PLAYER_SIZE_VERTEX_X;
-	//pVtx[2].pos.y = pPlayer->pos.y + cosf(pPlayer->rotPlayer.z + D3DX_PI / 2) * PLAYER_SIZE_VERTEX_X;
-	//pVtx[2].pos.z = 0.0f;
-
-	//pVtx[3].pos.x = pPlayer->pos.x - sinf(pPlayer->rotPlayer.z - pPlayer->fAnglePlayer) * pPlayer->fLengthPlayer;
-	//pVtx[3].pos.y = pPlayer->pos.y - cosf(pPlayer->rotPlayer.z - pPlayer->fAnglePlayer) * pPlayer->fLengthPlayer;
-	//pVtx[3].pos.z = 0.0f;
 
 	pVtx[0].pos = D3DXVECTOR3(pPlayer->pos.x - PLAYER_SIZE_VERTEX_X, pPlayer->pos.y, 0.0f);
 	pVtx[1].pos = D3DXVECTOR3(pPlayer->pos.x - PLAYER_SIZE_VERTEX_X, pPlayer->pos.y - PLAYER_SIZE_Y, 0.0f);
@@ -662,13 +508,4 @@ void DrawPlayer(void)
 PLAYER *GetPlayer(void)
 {
 	return &g_player;
-}
-
-//=========================================================================================================================
-// プレイヤーのヒット処理
-//=========================================================================================================================
-bool HitPlayer(int nDamage)
-{
-
-	return true;
 }
