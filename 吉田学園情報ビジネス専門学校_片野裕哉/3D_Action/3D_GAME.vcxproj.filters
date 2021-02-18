@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\SYSTEM">
+      <UniqueIdentifier>{8842026e-76bf-4fcf-9137-31fa40351c4c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SCENE">
+      <UniqueIdentifier>{64418676-b74f-4a8b-8079-16780c63ebba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SYSTEM">
+      <UniqueIdentifier>{30d2be09-cbd7-4bcb-bcc8-de1d4d757ec8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SCENE">
+      <UniqueIdentifier>{b05e191a-bcb1-4b6c-95ea-606752f7a31e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\SCENE\GAME">
+      <UniqueIdentifier>{daa2d6cb-2280-400d-97d2-7200bb717b72}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SCENE\GAME">
+      <UniqueIdentifier>{807f57b4-e0b5-4587-bca0-6fb6722fe68a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="goal.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="Billboard.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="bullet.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="camera.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="light.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="meshfield.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="particle.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="model.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="polygon.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="shadow.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="Solid.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="wall.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
+    </ClCompile>
+    <ClCompile Include="fade.cpp">
+      <Filter>ソース ファイル\SYSTEM</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>ソース ファイル\SYSTEM</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル\SYSTEM</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>ソース ファイル\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>ソース ファイル\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>ソース ファイル\SCENE</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Billboard.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="bullet.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="camera.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="goal.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="light.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="meshfield.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="model.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="particle.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="polygon.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="shadow.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="wall.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="Solid.h">
+      <Filter>ヘッダー ファイル\SCENE\GAME</Filter>
+    </ClInclude>
+    <ClInclude Include="fade.h">
+      <Filter>ヘッダー ファイル\SYSTEM</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>ヘッダー ファイル\SYSTEM</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>ヘッダー ファイル\SYSTEM</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>ヘッダー ファイル\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="result.h">
+      <Filter>ヘッダー ファイル\SCENE</Filter>
+    </ClInclude>
+    <ClInclude Include="title.h">
+      <Filter>ヘッダー ファイル\SCENE</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
