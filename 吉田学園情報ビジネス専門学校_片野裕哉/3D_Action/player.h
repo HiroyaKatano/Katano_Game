@@ -19,8 +19,13 @@
 //モーションの種類
 typedef enum
 {
-	MOTIONTYPE_NEUTRAL = 0,		// ニュートラルモーション
-	MOTIOBTYPE_MAX
+	MOTIONTYPE_NEUTRAL = 0,	// ニュートラルモーション
+	MOTIONTYPE_MOVE,		// 移動モーション
+	MOTIONTYPE_ACTION,		// アクションモーション
+	MOTIONTYPE_JUMP,		// ジャンプモーション
+	MOTIONTYPE_STEP,		// 着地モーション
+	MOTIONTYPE_DAMAGE,		// やられモーション
+	MOTIONTYPE_MAX			// モーションの最大数
 }MOTIONTYPE;
 
 // キーの構造体
@@ -46,7 +51,7 @@ typedef struct
 {
 	bool bLoop;				// ループするかどうか
 	int nNumKey;			// キーの総数
-	KEY_INFO aKeyInfo[4];	// キー情報
+	KEY_INFO aKeyInfo[10];	// キー情報
 }MOTION_INFO;
 
 typedef struct
@@ -62,12 +67,13 @@ typedef struct
 	int nIdxModelParent;				// 親のインデックス
 	D3DXVECTOR3 vtxMinModel;			// モデルの最小値
 	D3DXVECTOR3 vtxMaxModel;			// モデルの最大値
-
+	char aFileName[128];
 } MODEL;
 
 typedef struct
 {
-	D3DXVECTOR3 pos;			// 位置
+	D3DXVECTOR3 pos;			// 現在の位置
+	D3DXVECTOR3 posOld;			// 過去の位置
 	D3DXVECTOR3 move;			// 移動量
 	D3DXVECTOR3 rot;			// 向き
 	D3DXVECTOR3 rotDest;		// 目的の向き
@@ -75,14 +81,15 @@ typedef struct
 	MODEL aModel[MAX_MODEL];	// モデル(パーツ)
 	int nNumModel;				// モデル(パーツ)の数
 
-	MOTION_INFO aMotionInfo[1];	// モーション情報
-	int nNumMotion;				// モーション数
+	MOTION_INFO aMotionInfo[MOTIONTYPE_MAX];	// モーション情報
+	int nNumMotion = MOTIONTYPE_MAX;				// モーション数
 	MOTIONTYPE motionType;		// モーションタイプ
+	MOTIONTYPE motionTypeOld;					// 直前のモーションタイプ
 	bool bLoopMotion;			// ループするかどうか
 	int nNumKey;				// キー数
 	int nKey;					// キーNo.
 	int nCounterMotion;			// モーションカウンター
-
+	D3DXVECTOR3 posParent;						// 親の座標
 	bool bGoal;
 } PLAYER;
 
@@ -117,7 +124,7 @@ void UninitPlayer(void);
 void UpdatePlayer(void);
 void DrawPlayer(void);
 PLAYER *GetPlayer(void);
-void SavePlayerData(void);
-void MotionPlayer(void);
+void LoadPlayerData(void);
+void MotionPlayer(MOTIONTYPE motionType);
 
 #endif

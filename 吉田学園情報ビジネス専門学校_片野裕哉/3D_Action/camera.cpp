@@ -14,7 +14,7 @@
 //
 #define CAMERA_POS_R_DISTANCE (10.0f)	// 注視点とモデルの距離
 #define CAMERA_SPD (3.0f)				// カメラの速さ
-#define CAMERA_SPD_DECAY (0.04f)		// カメラの速度減衰係数
+#define CAMERA_SPD_DECAY (0.2f)		// カメラの速度減衰係数
 
 //
 // グローバル変数
@@ -26,8 +26,8 @@ Camera g_camera;		// カメラの情報
 //
 void InitCamera(void)
 {
-	g_camera.posV = D3DXVECTOR3(0.0f, 90.0f, -200.0f);
-	g_camera.posVDest = D3DXVECTOR3(0.0f, 90.0f, -200.0f);
+	g_camera.posV = D3DXVECTOR3(0.0f, 90.0f, -400.0f);
+	g_camera.posVDest = D3DXVECTOR3(0.0f, 90.0f, -400.0f);
 	g_camera.posR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_camera.posRDest = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 	g_camera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
@@ -73,14 +73,14 @@ void UpdateCamera(void)
 
 	if (g_camera.bFollow == false)
 	{
-		if (GetKeyboardTrigger(DIK_SPACE) == true)
+		/*if (GetKeyboardTrigger(DIK_SPACE) == true)
 		{
 			g_camera.posV = D3DXVECTOR3(0.0f, 90.0f, -200.0f);
 			g_camera.posR = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 			g_camera.vecU = D3DXVECTOR3(0.0f, 1.0f, 0.0f);
 			g_camera.rot = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
 			g_camera.fDistance = g_camera.posR.z - g_camera.posV.z;
-		}
+		}*/
 
 		if (GetKeyboardPress(DIK_W) == true)
 		{
