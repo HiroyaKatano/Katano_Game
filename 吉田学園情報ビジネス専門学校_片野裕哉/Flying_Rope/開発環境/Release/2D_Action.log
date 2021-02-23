@@ -1,7 +1,12 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Release\) contains files shared from another project (2D_Action.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Score.cpp
   game.cpp
+  player.cpp
+  timer.cpp
   コード生成しています。
-  All 114 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  5 of 113 functions ( 4.4%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    3 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
   2D_Action.vcxproj -> C:\Users\student\Desktop\Katano_Game\吉田学園情報ビジネス専門学校_片野裕哉\Flying_Rope\開発環境\Flying_Rope.exe
   2D_Action.vcxproj -> C:\Users\student\Desktop\Katano_Game\吉田学園情報ビジネス専門学校_片野裕哉\Flying_Rope\開発環境\Flying_Rope.pdb (Full PDB)

@@ -142,7 +142,7 @@ void AddScore(int nValue)
 {
 	// 変数宣言
 	int nData = 10000000;	// 割る数
-	int aNumber[8];			// スコアを格納
+	int aNumber[6];			// スコアを格納
 	g_nScore -= nValue;
 
 	// 構造体のポインタ変数

@@ -11,13 +11,14 @@
 // マクロ定義
 //
 #define MAX_BLOCK (256)
-#define MAX_TYPE_BLOCK (1)
+#define MAX_TYPE_BLOCK (2)
 
 //
 // グローバル変数
 //
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffBlock = NULL;		// 頂点バッファ
 LPDIRECT3DTEXTURE9 g_pTextureBlock = NULL;			// テクスチャ
+LPDIRECT3DTEXTURE9 g_pTextureGoal = NULL;			// テクスチャ
 BLOCK g_aBlock[MAX_BLOCK];							// ブロックの上限
 
 //
@@ -32,6 +33,7 @@ HRESULT InitBlock(void)
 
 	// テクスチャの読み込み
 	D3DXCreateTextureFromFile(pDevice, "data\\TEXTURE\\block000.jpg", &g_pTextureBlock);
+	D3DXCreateTextureFromFile(pDevice, "data\\TEXTURE\\goal_star.png", &g_pTextureGoal);
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer(
@@ -72,18 +74,6 @@ HRESULT InitBlock(void)
 		pVtx[2].rhw = 1.0f;
 		pVtx[3].rhw = 1.0f;
 
-		// 頂点カラーの設定
-		pVtx[0].col = BLOCK_COLOR;
-		pVtx[1].col = BLOCK_COLOR;
-		pVtx[2].col = BLOCK_COLOR;
-		pVtx[3].col = BLOCK_COLOR;
-
-		// 頂点情報の設定
-		pVtx[0].tex = D3DXVECTOR2(0.0f, 1.0f);
-		pVtx[1].tex = D3DXVECTOR2(0.0f, 0.0f);
-		pVtx[2].tex = D3DXVECTOR2(1.0f, 1.0f);
-		pVtx[3].tex = D3DXVECTOR2(1.0f, 0.0f);
-
 		pVtx += 4;
 	}
 
@@ -109,12 +99,18 @@ void UninitBlock(void)
 	// テクスチャの開放
 	//for (int nCnt = 0; nCnt < MAX_TYPE_BLOCK; nCnt++)
 	//{
-		if (g_pTextureBlock != NULL)
-		{
-			g_pTextureBlock->Release();
-			g_pTextureBlock = NULL;
-		}
+	if (g_pTextureBlock != NULL)
+	{
+		g_pTextureBlock->Release();
+		g_pTextureBlock = NULL;
+	}
 	//}
+
+	if (g_pTextureGoal != NULL)
+	{
+		g_pTextureGoal->Release();
+		g_pTextureGoal = NULL;
+	}
 }
 
 
@@ -157,7 +153,17 @@ void DrawBlock(void)
 		if (g_aBlock[nCntBlock].bUse == true)
 		{
 			// テクスチャの設定
-			pDevice->SetTexture(0, g_pTextureBlock);
+			switch (g_aBlock[nCntBlock].BlockType)
+			{
+			case 0:
+				pDevice->SetTexture(0, g_pTextureBlock);
+				break;
+			case 1:
+				pDevice->SetTexture(0, g_pTextureGoal);
+			default:
+				break;
+			}
+			
 
 			// プレイヤーの描画
 			pDevice->DrawPrimitive(
@@ -172,7 +178,7 @@ void DrawBlock(void)
 //
 // ブロックのセット処理
 //
-void SetBlock(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fBlockWigth, float fBlockHeight)
+void SetBlock(D3DXVECTOR3 BlockPos, D3DXVECTOR3 BlockMove, float fBlockWigth, float fBlockHeight, BLOCKTYPE BlockType)
 {
 	BLOCK *pBlock;
 	pBlock = &g_aBlock[0];
@@ -182,13 +188,15 @@ void SetBlock(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fBlockWigth, float fBlock
 		if (pBlock->bUse == false)
 		{
 			// 位置の設定
-			pBlock->pos = pos;
+			pBlock->pos = BlockPos;
 
-			pBlock->move = move;
+			pBlock->move = BlockMove;
 
 			pBlock->fWidth = fBlockWigth;
 
 			pBlock->fHeight = fBlockHeight;
+
+			pBlock->BlockType = BlockType;
 			
 			// 頂点座標の設定
 			SetVertexBlock(nCntBlock);

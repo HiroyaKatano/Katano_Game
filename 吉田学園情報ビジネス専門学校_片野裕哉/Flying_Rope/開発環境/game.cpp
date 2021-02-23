@@ -41,6 +41,9 @@ HRESULT InitGame(void)
 {
 	// ファイルのポインタ
 	FILE *pFile;
+	BLOCK *pBlock;
+	pBlock = GetBlock();
+
 	pFile = fopen("data\\MAP_DATA\\map_00.csv", "r");
 
 	// BGの初期化処理
@@ -78,12 +81,12 @@ HRESULT InitGame(void)
 			if (g_aMapData[nCntX][nCntY] == 1)
 			{
 				D3DXVECTOR3 pos = D3DXVECTOR3(float((SCREEN_WIDTH_R / MAX_MAPDATA_X) * nCntX), float((SCREEN_HEIGHT_U / MAX_MAPDATA_Y) * nCntY), 0.0f);
-				SetBlock(pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), (SCREEN_WIDTH_R / MAX_MAPDATA_X), (SCREEN_HEIGHT_U / MAX_MAPDATA_Y));
+				SetBlock(pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), (SCREEN_WIDTH_R / MAX_MAPDATA_X), (SCREEN_HEIGHT_U / MAX_MAPDATA_Y), BLOCKTYPE_BLOCK);
 			}
 			else if (g_aMapData[nCntX][nCntY] == 2)
 			{
 				D3DXVECTOR3 pos = D3DXVECTOR3(float((SCREEN_WIDTH_R / MAX_MAPDATA_X) * nCntX), float((SCREEN_HEIGHT_U / MAX_MAPDATA_Y) * nCntY), 0.0f);
-				SetGoal(pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), (SCREEN_WIDTH_R / MAX_MAPDATA_X), (SCREEN_HEIGHT_U / MAX_MAPDATA_Y));
+				SetBlock(pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), (SCREEN_WIDTH_R / MAX_MAPDATA_X), (SCREEN_HEIGHT_U / MAX_MAPDATA_Y), BLOCKTYPE_GOAL);
 			}
 		}
 	}
@@ -148,11 +151,11 @@ void UninitGame(void)
 void UpdateGame(void)
 {
 	PLAYER *pPlayer;
-	GOAL *pGoal;
+	/*GOAL *pGoal;*/
 	int nResult = GetResult();
 
 	pPlayer = GetPlayer();
-	pGoal = GetGoal();
+	/*pGoal = GetGoal();*/
 	int nFade = GetFade();
 
 	if (GetKeyboardTrigger(DIK_P) == true)
@@ -182,8 +185,8 @@ void UpdateGame(void)
 		//// ゴールの更新処理
 		//UpdateGoal();
 
-		// タイマーの更新処理
-		//UpdateTimer();
+		//タイマーの更新処理
+		UpdateTimer();
 
 		// スコアの更新処理
 		UpdateScore();
@@ -232,7 +235,7 @@ void DrawGame(void)
 		if (g_bPause == true)
 		{
 			// ポーズ中の描画処理
-			//DrawPause();
+			DrawPause();
 		}
 }
 

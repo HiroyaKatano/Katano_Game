@@ -21,6 +21,13 @@
 //
 // 構造体の定義
 //
+typedef enum
+{
+	BLOCKTYPE_BLOCK = 0,
+	BLOCKTYPE_GOAL,
+	BLOCKTYPE_MAX,
+} BLOCKTYPE;
+
 typedef struct
 {
 	D3DXVECTOR3 pos;	// 位置
@@ -28,6 +35,7 @@ typedef struct
 	D3DXCOLOR col;		// 色
 	float fWidth;		// 幅
 	float fHeight;		// 高さ
+	BLOCKTYPE BlockType;
 	bool bUse;			// 使用されているかどうか
 } BLOCK;
 
@@ -38,7 +46,7 @@ HRESULT InitBlock(void);
 void UninitBlock(void);
 void UpdateBlock(void);
 void DrawBlock(void);
-void SetBlock(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fBlockWigth, float fBlockHeight);
+void SetBlock(D3DXVECTOR3 BlockPos, D3DXVECTOR3 BlockMove, float fBlockWigth, float fBlockHeight, BLOCKTYPE BlockType);
 void SetVertexBlock(int nIdx);
 BLOCK *GetBlock(void);
 bool CollisionBlock(D3DXVECTOR3 *pPos, D3DXVECTOR3 *pPosOld,	// ブロックの当たり判定
