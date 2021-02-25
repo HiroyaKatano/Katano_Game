@@ -14,7 +14,7 @@
 //=========================================================================================================================
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffResult = NULL;		// 頂点バッファ
 LPDIRECT3DTEXTURE9 g_apTextureResult[2] = {};			// テクスチャ
-int g_nResult;
+RESULT g_Result;
 
 //=========================================================================================================================
 // リザルトの初期化処理
@@ -30,11 +30,11 @@ HRESULT InitResult(void)
 
 	// テクスチャの読み込み
 	D3DXCreateTextureFromFile(pDevice, "data\\TEXTURE\\failed_cat.jpg", &g_apTextureResult[0]);
-	D3DXCreateTextureFromFile(pDevice, "data\\TEXTURE\\result_cat.jpg", &g_apTextureResult[1]);
+	D3DXCreateTextureFromFile(pDevice, "data\\TEXTURE\\clear_cat.jpg", &g_apTextureResult[1]);
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer(
-		sizeof(VERTEX_2D) * 4,
+		sizeof(VERTEX_2D) * VTX_NUM,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -49,10 +49,10 @@ HRESULT InitResult(void)
 	g_pVtxBuffResult->Lock(0, 0, (void**)&pVtex, 0);
 
 	// 頂点座標の設定
-	pVtex[0].pos = D3DXVECTOR3(SCREEN_WIDTH_L, SCREEN_HEIGHT_U, 0.0f);
-	pVtex[1].pos = D3DXVECTOR3(SCREEN_WIDTH_L, SCREEN_HEIGHT_T, 0.0f);
-	pVtex[2].pos = D3DXVECTOR3(SCREEN_WIDTH_R, SCREEN_HEIGHT_U, 0.0f);
-	pVtex[3].pos = D3DXVECTOR3(SCREEN_WIDTH_R, SCREEN_HEIGHT_T, 0.0f);
+	pVtex[0].pos = D3DXVECTOR3(SCREEN_WIDTH_L, SCREEN_HEIGHT_U, Z_AXIS_ZERO);
+	pVtex[1].pos = D3DXVECTOR3(SCREEN_WIDTH_L, SCREEN_HEIGHT_T, Z_AXIS_ZERO);
+	pVtex[2].pos = D3DXVECTOR3(SCREEN_WIDTH_R, SCREEN_HEIGHT_U, Z_AXIS_ZERO);
+	pVtex[3].pos = D3DXVECTOR3(SCREEN_WIDTH_R, SCREEN_HEIGHT_T, Z_AXIS_ZERO);
 
 	// rhwの設定
 	pVtex[0].rhw = 1.0f;
@@ -131,7 +131,7 @@ void DrawResult(void)
 	pDevice->SetFVF(FVF_VERTEX_2D);
 
 	// テクスチャの設定
-	switch (g_nResult)
+	switch (g_Result.ResultType)
 	{
 	case 0:
 		pDevice->SetTexture(0, g_apTextureResult[1]);
@@ -153,7 +153,7 @@ void DrawResult(void)
 //
 //
 //
-int GetResult(void)
+RESULT *GetResult(void)
 {
-	return g_nResult;
+	return &g_Result;
 }

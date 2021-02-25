@@ -6,6 +6,8 @@
 //
 #include "block.h"
 #include "player.h"
+#include "result.h"
+#include "fade.h"
 
 //
 // マクロ定義
@@ -37,7 +39,7 @@ HRESULT InitBlock(void)
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer(
-		sizeof(VERTEX_2D) * MAX_BLOCK * 4,							// 
+		sizeof(VERTEX_2D) * MAX_BLOCK * VTX_NUM,							// 
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -49,8 +51,8 @@ HRESULT InitBlock(void)
 
 	for (int nCntBlock = 0; nCntBlock < MAX_BLOCK; nCntBlock++)
 	{
-		g_aBlock[nCntBlock].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		g_aBlock[nCntBlock].move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		g_aBlock[nCntBlock].pos = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
+		g_aBlock[nCntBlock].move = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
 		g_aBlock[nCntBlock].col = BLOCK_COLOR;
 		g_aBlock[nCntBlock].fWidth = 0.0f;
 		g_aBlock[nCntBlock].fHeight = 0.0f;
@@ -74,7 +76,7 @@ HRESULT InitBlock(void)
 		pVtx[2].rhw = 1.0f;
 		pVtx[3].rhw = 1.0f;
 
-		pVtx += 4;
+		pVtx += VTX_NUM;
 	}
 
 	// 頂点バッファをアンロックする
@@ -168,7 +170,7 @@ void DrawBlock(void)
 			// プレイヤーの描画
 			pDevice->DrawPrimitive(
 				D3DPT_TRIANGLESTRIP,			// プリミティブの種類
-				nCntBlock * 4,					// 描画を開始する頂点インデックス
+				nCntBlock * VTX_NUM,					// 描画を開始する頂点インデックス
 				2);								// 描画するプリミティブの数
 		}
 	}
@@ -217,13 +219,13 @@ void SetVertexBlock(int nIdx)
 	VERTEX_2D *pVtx;
 	g_pVtxBuffBlock->Lock(0, 0, (void**)&pVtx, 0);
 
-	pVtx += nIdx * 4;
+	pVtx += nIdx * VTX_NUM;
 
 
-	pVtx[0].pos = D3DXVECTOR3(g_aBlock[nIdx].pos.x, g_aBlock[nIdx].pos.y + g_aBlock[nIdx].fHeight, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(g_aBlock[nIdx].pos.x, g_aBlock[nIdx].pos.y, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(g_aBlock[nIdx].pos.x + g_aBlock[nIdx].fWidth, g_aBlock[nIdx].pos.y + g_aBlock[nIdx].fHeight, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(g_aBlock[nIdx].pos.x + g_aBlock[nIdx].fWidth, g_aBlock[nIdx].pos.y, 0.0f);
+	pVtx[0].pos = D3DXVECTOR3(g_aBlock[nIdx].pos.x, g_aBlock[nIdx].pos.y + g_aBlock[nIdx].fHeight, Z_AXIS_ZERO);
+	pVtx[1].pos = D3DXVECTOR3(g_aBlock[nIdx].pos.x, g_aBlock[nIdx].pos.y, Z_AXIS_ZERO);
+	pVtx[2].pos = D3DXVECTOR3(g_aBlock[nIdx].pos.x + g_aBlock[nIdx].fWidth, g_aBlock[nIdx].pos.y + g_aBlock[nIdx].fHeight, Z_AXIS_ZERO);
+	pVtx[3].pos = D3DXVECTOR3(g_aBlock[nIdx].pos.x + g_aBlock[nIdx].fWidth, g_aBlock[nIdx].pos.y, Z_AXIS_ZERO);
 
 	// 頂点カラーの設定
 	pVtx[0].col = BLOCK_COLOR;
@@ -258,6 +260,7 @@ BLOCK *GetBlock(void)
 bool CollisionBlock(D3DXVECTOR3 *pPos, D3DXVECTOR3 *pPosOld, D3DXVECTOR3 *pMove, float fWidth, float fHeight)
 {
 	BLOCK *pBlock;
+	RESULT *pResult = GetResult();
 
 	bool bLand = false;
 	pBlock = &g_aBlock[0];
@@ -268,43 +271,67 @@ bool CollisionBlock(D3DXVECTOR3 *pPos, D3DXVECTOR3 *pPosOld, D3DXVECTOR3 *pMove,
 		{
 			if (pPos->x + fWidth > pBlock->pos.x + 1.0f&&
 				pPos->x - fWidth < pBlock->pos.x + pBlock->fWidth)
-			{
+			{// プレイヤーの右端がブロックの左端より右側かつプレイヤーの左端がブロックの右端より左側に位置するとき
 				if (pPosOld->y <= pBlock->pos.y - 1.0f)
-				{
+				{// 前回のプレイヤーの下端がブロックの上端に触れていないとき
 					if (pPos->y > pBlock->pos.y - 1.0f)
-					{
+					{// 現在のプレイヤーの下端がブロックの上端よりも下側に位置するとき
 						pPos->y = pBlock->pos.y - 1.0f;
 						pMove->y = 0.0f;
 						bLand = true;
+
+						if (pBlock->BlockType == BLOCKTYPE_GOAL)
+						{// ブロックの種類がゴールであった場合
+							pResult->ResultType = RESULTTYPE_CLEAR;
+							SetFade(FADE_OUT, MODE_RESULT);
+						}
 					}
 				}
  				else if (pPosOld->y - fHeight >= pBlock->pos.y + pBlock->fHeight)
-				{
+				{// 前回のプレイヤーの上端がブロックの下端に触れていないとき
 					if (pPos->y - fHeight < pBlock->pos.y + pBlock->fHeight)
-					{
+					{// 現在のプレイヤーの上端がブロックの下端より上側に位置するとき
 						pPos->y = (pBlock->pos.y + pBlock->fHeight) + fHeight;
 						pMove->y = 1.0f;
+
+						if (pBlock->BlockType == BLOCKTYPE_GOAL)
+						{// ブロックの種類がゴールであった場合
+							pResult->ResultType = RESULTTYPE_CLEAR;
+							SetFade(FADE_OUT, MODE_RESULT);
+						}
 					}
 				}
 			}
 
 			if (pPos->y > pBlock->pos.y &&
 				pPos->y - fHeight < pBlock->pos.y + pBlock->fHeight)
-			{
+			{// 現在のプレイヤーの下端がブロックの上端よりも下側かつプレイヤーの上端がブロックの下端より上側に位置するとき
 				if (pPosOld->x - fWidth >= pBlock->pos.x + pBlock->fWidth + 1.0f)
-				{
+				{// 前回のプレイヤーの左端がブロックの右端に触れていないとき
 					if (pPos->x - fWidth < pBlock->pos.x + pBlock->fWidth + 1.0f)
-					{
+					{// 現在のプレイヤーの左端がブロックの右端より左側に位置するとき
 						pPos->x = (pBlock->pos.x + pBlock->fWidth) + fWidth + 1.0f;
 						pMove->x = 0.0f;
+
+						if (pBlock->BlockType == BLOCKTYPE_GOAL)
+						{// ブロックの種類がゴールであった場合
+							pResult->ResultType = RESULTTYPE_CLEAR;
+							SetFade(FADE_OUT, MODE_RESULT);
+						}
 					}
 				}
 				else if (pPosOld->x + fWidth <= pBlock->pos.x)
-				{
+				{// 前回のプレイヤーの右端がブロックの左端に触れていないとき
 					if (pPos->x + fWidth > pBlock->pos.x)
-					{
+					{// 現在のプレイヤーの右端がブロックの左端より左側に位置するとき
 						pPos->x = pBlock->pos.x - fWidth;
 						pMove->x = 0.0f;
+
+						if (pBlock->BlockType == BLOCKTYPE_GOAL)
+						{// ブロックの種類がゴールであった場合
+							pResult->ResultType = RESULTTYPE_CLEAR;
+							SetFade(FADE_OUT, MODE_RESULT);
+						}
 					}
 				}
 			}

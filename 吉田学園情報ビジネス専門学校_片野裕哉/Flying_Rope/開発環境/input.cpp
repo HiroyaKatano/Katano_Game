@@ -7,15 +7,20 @@
 #include "input.h"
 
 //=========================================================================================================================
+// マクロ定義
+//=========================================================================================================================
+#define MAX_KEY (256)
+
+//=========================================================================================================================
 // グローバル変数
 //=========================================================================================================================
 LPDIRECTINPUT8 g_pInput = NULL;
 LPDIRECTINPUTDEVICE8 g_pDevKeyboard = NULL;
-BYTE g_aKeyState[256];
-BYTE g_aKeyStateTrigger[256];
-BYTE g_aKeyStateRelease[256];
-BYTE g_aKeyStateRepeat[256];
-int g_aCountRepeat[256];
+BYTE g_aKeyState[MAX_KEY];
+BYTE g_aKeyStateTrigger[MAX_KEY];
+BYTE g_aKeyStateRelease[MAX_KEY];
+BYTE g_aKeyStateRepeat[MAX_KEY];
+int g_aCountRepeat[MAX_KEY];
 
 //=========================================================================================================================
 // 初期化処理
@@ -77,12 +82,12 @@ void UninitKeyboard(void)
 //=========================================================================================================================
 void UpdateKeyboard(void)
 {
-	BYTE aKeyState[256];
+	BYTE aKeyState[MAX_KEY];
 
 	// デバイスからデータを取得
 	if (SUCCEEDED(g_pDevKeyboard->GetDeviceState(sizeof(aKeyState), &aKeyState[0])))
 	{
-		for (int nKey = 0; nKey < 256; nKey++)
+		for (int nKey = 0; nKey < MAX_KEY; nKey++)
 		{
 			g_aKeyStateRepeat[nKey] = (g_aKeyState[nKey] ^ aKeyState[nKey]) & g_aKeyState[nKey];
 			g_aKeyStateRelease[nKey] = (g_aKeyState[nKey] ^ aKeyState[nKey]) & g_aKeyState[nKey];

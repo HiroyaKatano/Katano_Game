@@ -35,7 +35,7 @@ HRESULT InitTimer(void)
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer(
-		sizeof(VERTEX_2D) * 4 * MAX_TYPE_TIMER,
+		sizeof(VERTEX_2D) * VTX_NUM * MAX_TYPE_TIMER,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -54,10 +54,10 @@ HRESULT InitTimer(void)
 	for (int nCntTimer = 0; nCntTimer < MAX_TYPE_TIMER; nCntTimer++)
 	{
 		// 頂点座標の設定
-		pVtx[0].pos = D3DXVECTOR3(TIMER_POS_X + TIMER_WIDTH * nCntTimer, TIMER_POS_Y + TIMER_HEIGHT, 0.0f);
-		pVtx[1].pos = D3DXVECTOR3(TIMER_POS_X + TIMER_WIDTH * nCntTimer, TIMER_POS_Y, 0.0f);
-		pVtx[2].pos = D3DXVECTOR3(TIMER_POS_X + TIMER_WIDTH + TIMER_WIDTH * nCntTimer, TIMER_POS_Y + TIMER_HEIGHT, 0.0f);
-		pVtx[3].pos = D3DXVECTOR3(TIMER_POS_X + TIMER_WIDTH + TIMER_WIDTH * nCntTimer, TIMER_POS_Y, 0.0f);
+		pVtx[0].pos = D3DXVECTOR3(TIMER_POS_X + TIMER_WIDTH * nCntTimer, TIMER_POS_Y + TIMER_HEIGHT, Z_AXIS_ZERO);
+		pVtx[1].pos = D3DXVECTOR3(TIMER_POS_X + TIMER_WIDTH * nCntTimer, TIMER_POS_Y, Z_AXIS_ZERO);
+		pVtx[2].pos = D3DXVECTOR3(TIMER_POS_X + TIMER_WIDTH + TIMER_WIDTH * nCntTimer, TIMER_POS_Y + TIMER_HEIGHT, Z_AXIS_ZERO);
+		pVtx[3].pos = D3DXVECTOR3(TIMER_POS_X + TIMER_WIDTH + TIMER_WIDTH * nCntTimer, TIMER_POS_Y, Z_AXIS_ZERO);
 
 		// 頂点情報の設定
 		pVtx[0].tex = D3DXVECTOR2(0.0f, 1.0f / NUMBER_TEXTURE_Y);
@@ -77,7 +77,7 @@ HRESULT InitTimer(void)
 		pVtx[2].col = D3DXCOLOR(TIMER_COLOR_R, TIMER_COLOR_G, TIMER_COLOR_B, TIMER_COLOR_A);
 		pVtx[3].col = D3DXCOLOR(TIMER_COLOR_R, TIMER_COLOR_G, TIMER_COLOR_B, TIMER_COLOR_A);
 
-		pVtx += 4;
+		pVtx += VTX_NUM;
 	}
 
 	// 頂点バッファをアンロックする
@@ -113,7 +113,7 @@ void UninitTimer(void)
 void UpdateTimer(void)
 {
 	int nFade = GetFade();
-	int nResult = GetResult();
+	RESULT *pResult = GetResult();
 
 	g_nCntTimer++;
 	if (g_nCntTimer % 6 == 0 && nFade == FADE_NONE)
@@ -149,7 +149,7 @@ void UpdateTimer(void)
 		pVtx[3].tex = D3DXVECTOR2(1.0f / NUMBER_TEXTURE_X + aNumber[nCntTimer] * 0.1f, 0.0f);
 
 		// スコアの情報を次にうつす
-		pVtx += 4;
+		pVtx += VTX_NUM;
 	}
 	// 頂点バッファをアンロックする
 	g_pVtxBuffTimer->Unlock();
@@ -158,11 +158,11 @@ void UpdateTimer(void)
 	{
 		if (nFade == FADE_NONE)
 		{
-			nResult = FAILED_NUMBER;
+			pResult->ResultType = RESULTTYPE_FAILED;
 			SetFade(FADE_OUT, MODE_RESULT);
 		}
 	}
-
+	
 }
 
 //=========================================================================================================================
@@ -196,7 +196,7 @@ void DrawTimer(void)
 		// タイマーの描画
 		pDevice->DrawPrimitive(
 			D3DPT_TRIANGLESTRIP,			// プリミティブの種類
-			nCntTimer * 4,					// 描画を開始する頂点インデックス
+			nCntTimer * VTX_NUM,					// 描画を開始する頂点インデックス
 			2);								// 描画するプリミティブの数
 	}
 }

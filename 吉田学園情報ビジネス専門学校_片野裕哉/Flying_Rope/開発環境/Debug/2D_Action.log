@@ -1,23 +1,4 @@
 ﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (Debug\) contains files shared from another project (2D_Action.vcxproj).  This can lead to incorrect clean and rebuild behavior.
   wire.cpp
-  tutorial.cpp
-  title.cpp
-  timer.cpp
-  sound.cpp
-  Score.cpp
-  result.cpp
-  player.cpp
-  main.cpp
-  input.cpp
-  game.cpp
-  コードを生成中...
-  コンパイル中...
-  block.cpp
-  コードを生成中...
-  スキップ中... (関連する変更は検出されませんでした)
-  ranking.cpp
-  pause.cpp
-  fade.cpp
-  BG.cpp
-  2D_Action.vcxproj -> C:\Users\student\Desktop\2Dゲーム制作応用\2D_Action\Debug\Flying_Rope.exe
-  2D_Action.vcxproj -> C:\Users\student\Desktop\2Dゲーム制作応用\2D_Action\Debug\Flying_Rope.pdb (Full PDB)
+  2D_Action.vcxproj -> C:\Users\student\Desktop\Katano_Game\吉田学園情報ビジネス専門学校_片野裕哉\Flying_Rope\開発環境\Debug\Flying_Rope.exe
+  2D_Action.vcxproj -> C:\Users\student\Desktop\Katano_Game\吉田学園情報ビジネス専門学校_片野裕哉\Flying_Rope\開発環境\Debug\Flying_Rope.pdb (Full PDB)

@@ -30,7 +30,7 @@ HRESULT InitScore(void)
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer(
-		sizeof(VERTEX_2D) * 4 * MAX_SCORE,							// 
+		sizeof(VERTEX_2D) * VTX_NUM * MAX_SCORE,							// 
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -45,10 +45,10 @@ HRESULT InitScore(void)
 	for (int nCntScore = 0; nCntScore < MAX_SCORE; nCntScore++)
 	{
 		// 頂点座標の設定
-		pVtx[0].pos = D3DXVECTOR3(SCORE_LEFT_X + SCORE_WIDTH_X * nCntScore, SCORE_LOW_Y, 0.0f);
-		pVtx[1].pos = D3DXVECTOR3(SCORE_LEFT_X + SCORE_WIDTH_X * nCntScore, SCORE_HIGH_Y, 0.0f);
-		pVtx[2].pos = D3DXVECTOR3(SCORE_RIGHT_X + SCORE_WIDTH_X * nCntScore, SCORE_LOW_Y, 0.0f);
-		pVtx[3].pos = D3DXVECTOR3(SCORE_RIGHT_X + SCORE_WIDTH_X * nCntScore, SCORE_HIGH_Y, 0.0f);
+		pVtx[0].pos = D3DXVECTOR3(SCORE_LEFT_X + SCORE_WIDTH_X * nCntScore, SCORE_LOW_Y, Z_AXIS_ZERO);
+		pVtx[1].pos = D3DXVECTOR3(SCORE_LEFT_X + SCORE_WIDTH_X * nCntScore, SCORE_HIGH_Y, Z_AXIS_ZERO);
+		pVtx[2].pos = D3DXVECTOR3(SCORE_RIGHT_X + SCORE_WIDTH_X * nCntScore, SCORE_LOW_Y, Z_AXIS_ZERO);
+		pVtx[3].pos = D3DXVECTOR3(SCORE_RIGHT_X + SCORE_WIDTH_X * nCntScore, SCORE_HIGH_Y, Z_AXIS_ZERO);
 
 		// 頂点情報の設定
 		pVtx[0].tex = D3DXVECTOR2(0.0f, 1.0f / SCORE_TEXTURE_Y);
@@ -68,7 +68,7 @@ HRESULT InitScore(void)
 		pVtx[2].rhw = 1.0f;
 		pVtx[3].rhw = 1.0f;
 
-		pVtx += 4;
+		pVtx += VTX_NUM;
 	}
 
 	g_nScore = 200000;
@@ -130,7 +130,7 @@ void DrawScore(void)
 		// 敵の描画
 		pDevice->DrawPrimitive(
 			D3DPT_TRIANGLESTRIP,			// プリミティブの種類
-			nCntScore * 4,					// 描画を開始する頂点インデックス
+			nCntScore * VTX_NUM,					// 描画を開始する頂点インデックス
 			2);								// 描画するプリミティブの数
 	}
 }
@@ -164,7 +164,7 @@ void AddScore(int nValue)
 		pVtx[3].tex = D3DXVECTOR2(1.0f / SCORE_TEXTURE_X + aNumber[nCntScore] * 0.1f, 0.0f);
 
 		// スコアの情報を次にうつす
-		pVtx += 4;
+		pVtx += VTX_NUM;
 	}
 	// 頂点バッファをアンロックする
 	g_pVtxBuffScore->Unlock();

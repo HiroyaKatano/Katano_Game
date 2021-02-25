@@ -158,7 +158,6 @@
     <ClCompile Include="block.cpp" />
     <ClCompile Include="fade.cpp" />
     <ClCompile Include="game.cpp" />
-    <ClCompile Include="goal.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pause.cpp" />
@@ -177,7 +176,6 @@
     <ClInclude Include="block.h" />
     <ClInclude Include="fade.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="goal.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="pause.h" />

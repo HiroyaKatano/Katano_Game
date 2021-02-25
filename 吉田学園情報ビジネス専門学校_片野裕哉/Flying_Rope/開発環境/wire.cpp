@@ -8,6 +8,7 @@
 #include "player.h"
 #include "input.h"
 #include "block.h"
+#include "sound.h"
 
 //
 // マクロ定義
@@ -36,7 +37,7 @@ HRESULT InitWire(void)
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer(
-		sizeof(VERTEX_2D) * MAX_WIRE * 4,							// 
+		sizeof(VERTEX_2D) * MAX_WIRE * VTX_NUM,							// 
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -48,14 +49,14 @@ HRESULT InitWire(void)
 
 	for (int nCntWire = 0; nCntWire < MAX_WIRE; nCntWire++)
 	{
-		g_aWire[nCntWire].pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-		g_aWire[nCntWire].move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		g_aWire[nCntWire].pos = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
+		g_aWire[nCntWire].move = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
 		g_aWire[nCntWire].col = WIRE_COLOR;
 		g_aWire[nCntWire].fWidth = 0.0f;
 		g_aWire[nCntWire].fHeight = 0.0f;
 		g_aWire[nCntWire].bUse = false;
 		g_aWire[nCntWire].bContact = false;
-		g_aWire[nCntWire].rotWire = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+		g_aWire[nCntWire].rotWire = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
 		g_aWire[nCntWire].fLengthWire = 0.0f;
 		g_aWire[nCntWire].fAngleWire = 0.0f;
 	}
@@ -89,7 +90,7 @@ HRESULT InitWire(void)
 		pVtx[2].tex = D3DXVECTOR2(1.0f, 1.0f);
 		pVtx[3].tex = D3DXVECTOR2(1.0f, 0.0f);
 
-		pVtx += 4;
+		pVtx += VTX_NUM;
 	}
 
 	// 頂点バッファをアンロックする
@@ -145,14 +146,14 @@ void UpdateWire(void)
 		{
 			if (GetKeyboardTrigger(DIK_I) == true || pPlayer->state == PLAYERSTATE_WAIT)
 			{
-				pWire->pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-				pWire->move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+				pWire->pos = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
+				pWire->move = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
 				pWire->col = WIRE_COLOR;
 				pWire->fWidth = 0.0f;
 				pWire->fHeight = 0.0f;
 				pWire->bUse = false;
 				pWire->bContact = false;
-				pWire->rotWire = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+				pWire->rotWire = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
 				pWire->fLengthWire = 0.0f;
 				pWire->fAngleWire = 0.0f;
 			}
@@ -275,7 +276,7 @@ void DrawWire(void)
 			// プレイヤーの描画
 			pDevice->DrawPrimitive(
 				D3DPT_TRIANGLESTRIP,			// プリミティブの種類
-				nCntWire * 4,					// 描画を開始する頂点インデックス
+				nCntWire * VTX_NUM,					// 描画を開始する頂点インデックス
 				2);								// 描画するプリミティブの数
 		}
 	}
@@ -310,6 +311,8 @@ void SetWire(D3DXVECTOR3 pos, D3DXVECTOR3 move, float fWireWigth, float fWireHei
 
 			pWire->bExtend = true;
 
+			PlaySound(SOUND_LABEL_SE_ROPE);
+
 			break;
 		}
 	}
@@ -328,7 +331,7 @@ void SetVertexWire(int nIdx)
 
 	g_pVtxBuffWire->Lock(0, 0, (void**)&pVtx, 0);
 
-	pVtx += nIdx * 4;
+	pVtx += nIdx * VTX_NUM;
 
 	// 対角線の長さ
 	g_aWire[nIdx].fLengthWire = sqrtf(g_aWire[nIdx].fWidth * g_aWire[nIdx].fWidth + g_aWire[nIdx].fHeight * g_aWire[nIdx].fHeight);
@@ -339,19 +342,19 @@ void SetVertexWire(int nIdx)
 	// 頂点座標の設定
 	pVtx[0].pos.x = g_aWire[nIdx].pos.x + sinf(g_aWire[nIdx].rotWire.z - g_aWire[nIdx].fAngleWire) * g_aWire[nIdx].fLengthWire;
 	pVtx[0].pos.y = g_aWire[nIdx].pos.y + cosf(g_aWire[nIdx].rotWire.z - g_aWire[nIdx].fAngleWire) * g_aWire[nIdx].fLengthWire;
-	pVtx[0].pos.z = 0.0f;
+	pVtx[0].pos.z = Z_AXIS_ZERO;
 
 	pVtx[1].pos.x = g_aWire[nIdx].pos.x + sinf(g_aWire[nIdx].rotWire.z + -D3DX_PI / 2) * g_aWire[nIdx].fWidth;
 	pVtx[1].pos.y = g_aWire[nIdx].pos.y + cosf(g_aWire[nIdx].rotWire.z + -D3DX_PI / 2) * g_aWire[nIdx].fWidth;
-	pVtx[1].pos.z = 0.0f;
+	pVtx[1].pos.z = Z_AXIS_ZERO;
 
 	pVtx[2].pos.x = g_aWire[nIdx].pos.x + sinf(g_aWire[nIdx].rotWire.z + g_aWire[nIdx].fAngleWire) * g_aWire[nIdx].fLengthWire;
 	pVtx[2].pos.y = g_aWire[nIdx].pos.y + cosf(g_aWire[nIdx].rotWire.z + g_aWire[nIdx].fAngleWire) * g_aWire[nIdx].fLengthWire;
-	pVtx[2].pos.z = 0.0f;
+	pVtx[2].pos.z = Z_AXIS_ZERO;
 
 	pVtx[3].pos.x = g_aWire[nIdx].pos.x + sinf(g_aWire[nIdx].rotWire.z + D3DX_PI / 2) * g_aWire[nIdx].fWidth;
 	pVtx[3].pos.y = g_aWire[nIdx].pos.y + cosf(g_aWire[nIdx].rotWire.z + D3DX_PI / 2) * g_aWire[nIdx].fWidth;
-	pVtx[3].pos.z = 0.0f;
+	pVtx[3].pos.z = Z_AXIS_ZERO;
 
 	// 頂点カラーの設定
 	pVtx[0].col = WIRE_COLOR;

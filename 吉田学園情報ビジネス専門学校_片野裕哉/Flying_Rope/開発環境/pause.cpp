@@ -48,7 +48,7 @@ HRESULT InitPause(void)
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer(
-		sizeof(VERTEX_2D) * 4 * MAX_PAUSE_TYPE,
+		sizeof(VERTEX_2D) * VTX_NUM * MAX_PAUSE_TYPE,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -88,12 +88,12 @@ HRESULT InitPause(void)
 	g_pVtxBuffPause->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 頂点座標の設定
-	g_posPauseBG = D3DXVECTOR3(g_posPauseBG.x, g_posPauseBG.y, 0.0f);
-	g_posPause = D3DXVECTOR3(g_posPause.x, g_posPause.y, 0.0f);
-	g_posPauseLogo = D3DXVECTOR3(g_posPauseLogo.x, g_posPauseLogo.y, 0.0f);
-	g_posContinue = D3DXVECTOR3(g_posContinue.x, g_posContinue.y, 0.0f);
-	g_posRetry = D3DXVECTOR3(g_posRetry.x, g_posRetry.y, 0.0f);
-	g_posQuit = D3DXVECTOR3(g_posQuit.x, g_posQuit.y, 0.0f);
+	g_posPauseBG = D3DXVECTOR3(g_posPauseBG.x, g_posPauseBG.y, Z_AXIS_ZERO);
+	g_posPause = D3DXVECTOR3(g_posPause.x, g_posPause.y, Z_AXIS_ZERO);
+	g_posPauseLogo = D3DXVECTOR3(g_posPauseLogo.x, g_posPauseLogo.y, Z_AXIS_ZERO);
+	g_posContinue = D3DXVECTOR3(g_posContinue.x, g_posContinue.y, Z_AXIS_ZERO);
+	g_posRetry = D3DXVECTOR3(g_posRetry.x, g_posRetry.y, Z_AXIS_ZERO);
+	g_posQuit = D3DXVECTOR3(g_posQuit.x, g_posQuit.y, Z_AXIS_ZERO);
 
 
 	for (int nPause = 0; nPause < MAX_PAUSE_TYPE; nPause++)
@@ -102,10 +102,10 @@ HRESULT InitPause(void)
 		{
 		case 0:
 			// 画面暗転
-			pVtx[0].pos = D3DXVECTOR3(0, PAUSE_BG_SIZE_Y, 0.0f);
-			pVtx[1].pos = D3DXVECTOR3(0, 0, 0.0f);
-			pVtx[2].pos = D3DXVECTOR3(PAUSE_BG_SIZE_X, PAUSE_BG_SIZE_Y, 0.0f);
-			pVtx[3].pos = D3DXVECTOR3(PAUSE_BG_SIZE_X, 0, 0.0f);
+			pVtx[0].pos = D3DXVECTOR3(0, PAUSE_BG_SIZE_Y, Z_AXIS_ZERO);
+			pVtx[1].pos = D3DXVECTOR3(0, 0, Z_AXIS_ZERO);
+			pVtx[2].pos = D3DXVECTOR3(PAUSE_BG_SIZE_X, PAUSE_BG_SIZE_Y, Z_AXIS_ZERO);
+			pVtx[3].pos = D3DXVECTOR3(PAUSE_BG_SIZE_X, 0, Z_AXIS_ZERO);
 
 			// 頂点カラーの設定
 			pVtx[0].col = PAUSE_BG_COLOR;
@@ -115,10 +115,10 @@ HRESULT InitPause(void)
 			break;
 		case 1:
 			// ポーズ下地
-			pVtx[0].pos = D3DXVECTOR3(g_posPause.x - (PAUSE_SIZE_X / 2), g_posPause.y + (PAUSE_SIZE_Y / 2), 0.0f);
-			pVtx[1].pos = D3DXVECTOR3(g_posPause.x - (PAUSE_SIZE_X / 2), g_posPause.y - (PAUSE_SIZE_Y / 2), 0.0f);
-			pVtx[2].pos = D3DXVECTOR3(g_posPause.x + (PAUSE_SIZE_X / 2), g_posPause.y + (PAUSE_SIZE_Y / 2), 0.0f);
-			pVtx[3].pos = D3DXVECTOR3(g_posPause.x + (PAUSE_SIZE_X / 2), g_posPause.y - (PAUSE_SIZE_Y / 2), 0.0f);
+			pVtx[0].pos = D3DXVECTOR3(g_posPause.x - (PAUSE_SIZE_X / 2), g_posPause.y + (PAUSE_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[1].pos = D3DXVECTOR3(g_posPause.x - (PAUSE_SIZE_X / 2), g_posPause.y - (PAUSE_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[2].pos = D3DXVECTOR3(g_posPause.x + (PAUSE_SIZE_X / 2), g_posPause.y + (PAUSE_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[3].pos = D3DXVECTOR3(g_posPause.x + (PAUSE_SIZE_X / 2), g_posPause.y - (PAUSE_SIZE_Y / 2), Z_AXIS_ZERO);
 
 			// 頂点カラーの設定
 			pVtx[0].col = PAUSE_COLOR;
@@ -128,10 +128,10 @@ HRESULT InitPause(void)
 			break;
 		case 2:
 			// ポーズロゴ
-			pVtx[0].pos = D3DXVECTOR3(g_posPauseLogo.x - (PAUSE_LOGO_SIZE_X / 2), g_posPauseLogo.y + (PAUSE_LOGO_SIZE_Y / 2), 0.0f);
-			pVtx[1].pos = D3DXVECTOR3(g_posPauseLogo.x - (PAUSE_LOGO_SIZE_X / 2), g_posPauseLogo.y - (PAUSE_LOGO_SIZE_Y / 2), 0.0f);
-			pVtx[2].pos = D3DXVECTOR3(g_posPauseLogo.x + (PAUSE_LOGO_SIZE_X / 2), g_posPauseLogo.y + (PAUSE_LOGO_SIZE_Y / 2), 0.0f);
-			pVtx[3].pos = D3DXVECTOR3(g_posPauseLogo.x + (PAUSE_LOGO_SIZE_X / 2), g_posPauseLogo.y - (PAUSE_LOGO_SIZE_Y / 2), 0.0f);
+			pVtx[0].pos = D3DXVECTOR3(g_posPauseLogo.x - (PAUSE_LOGO_SIZE_X / 2), g_posPauseLogo.y + (PAUSE_LOGO_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[1].pos = D3DXVECTOR3(g_posPauseLogo.x - (PAUSE_LOGO_SIZE_X / 2), g_posPauseLogo.y - (PAUSE_LOGO_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[2].pos = D3DXVECTOR3(g_posPauseLogo.x + (PAUSE_LOGO_SIZE_X / 2), g_posPauseLogo.y + (PAUSE_LOGO_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[3].pos = D3DXVECTOR3(g_posPauseLogo.x + (PAUSE_LOGO_SIZE_X / 2), g_posPauseLogo.y - (PAUSE_LOGO_SIZE_Y / 2), Z_AXIS_ZERO);
 
 			// 頂点カラーの設定
 			pVtx[0].col = PAUSE_LOGO_COLOR;
@@ -141,10 +141,10 @@ HRESULT InitPause(void)
 			break;
 		case 3:
 			// Continue
-			pVtx[0].pos = D3DXVECTOR3(g_posContinue.x - (CONTINUE_SIZE_X / 2), g_posContinue.y + (CONTINUE_SIZE_Y / 2), 0.0f);
-			pVtx[1].pos = D3DXVECTOR3(g_posContinue.x - (CONTINUE_SIZE_X / 2), g_posContinue.y - (CONTINUE_SIZE_Y / 2), 0.0f);
-			pVtx[2].pos = D3DXVECTOR3(g_posContinue.x + (CONTINUE_SIZE_X / 2), g_posContinue.y + (CONTINUE_SIZE_Y / 2), 0.0f);
-			pVtx[3].pos = D3DXVECTOR3(g_posContinue.x + (CONTINUE_SIZE_X / 2), g_posContinue.y - (CONTINUE_SIZE_Y / 2), 0.0f);
+			pVtx[0].pos = D3DXVECTOR3(g_posContinue.x - (CONTINUE_SIZE_X / 2), g_posContinue.y + (CONTINUE_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[1].pos = D3DXVECTOR3(g_posContinue.x - (CONTINUE_SIZE_X / 2), g_posContinue.y - (CONTINUE_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[2].pos = D3DXVECTOR3(g_posContinue.x + (CONTINUE_SIZE_X / 2), g_posContinue.y + (CONTINUE_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[3].pos = D3DXVECTOR3(g_posContinue.x + (CONTINUE_SIZE_X / 2), g_posContinue.y - (CONTINUE_SIZE_Y / 2), Z_AXIS_ZERO);
 
 			// 頂点カラーの設定
 			pVtx[0].col = CONTINUE_COLOR;
@@ -154,10 +154,10 @@ HRESULT InitPause(void)
 			break;
 		case 4:
 			// Retry
-			pVtx[0].pos = D3DXVECTOR3(g_posRetry.x - (RETRY_SIZE_X / 2), g_posRetry.y + (RETRY_SIZE_Y / 2), 0.0f);
-			pVtx[1].pos = D3DXVECTOR3(g_posRetry.x - (RETRY_SIZE_X / 2), g_posRetry.y - (RETRY_SIZE_Y / 2), 0.0f);
-			pVtx[2].pos = D3DXVECTOR3(g_posRetry.x + (RETRY_SIZE_X / 2), g_posRetry.y + (RETRY_SIZE_Y / 2), 0.0f);
-			pVtx[3].pos = D3DXVECTOR3(g_posRetry.x + (RETRY_SIZE_X / 2), g_posRetry.y - (RETRY_SIZE_Y / 2), 0.0f);
+			pVtx[0].pos = D3DXVECTOR3(g_posRetry.x - (RETRY_SIZE_X / 2), g_posRetry.y + (RETRY_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[1].pos = D3DXVECTOR3(g_posRetry.x - (RETRY_SIZE_X / 2), g_posRetry.y - (RETRY_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[2].pos = D3DXVECTOR3(g_posRetry.x + (RETRY_SIZE_X / 2), g_posRetry.y + (RETRY_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[3].pos = D3DXVECTOR3(g_posRetry.x + (RETRY_SIZE_X / 2), g_posRetry.y - (RETRY_SIZE_Y / 2), Z_AXIS_ZERO);
 
 			// 頂点カラーの設定
 			pVtx[0].col = RETRY_COLOR;
@@ -167,10 +167,10 @@ HRESULT InitPause(void)
 			break;
 		case 5:
 			// Quit
-			pVtx[0].pos = D3DXVECTOR3(g_posQuit.x - (QUIT_SIZE_X / 2), g_posQuit.y + (QUIT_SIZE_Y / 2), 0.0f);
-			pVtx[1].pos = D3DXVECTOR3(g_posQuit.x - (QUIT_SIZE_X / 2), g_posQuit.y - (QUIT_SIZE_Y / 2), 0.0f);
-			pVtx[2].pos = D3DXVECTOR3(g_posQuit.x + (QUIT_SIZE_X / 2), g_posQuit.y + (QUIT_SIZE_Y / 2), 0.0f);
-			pVtx[3].pos = D3DXVECTOR3(g_posQuit.x + (QUIT_SIZE_X / 2), g_posQuit.y - (QUIT_SIZE_Y / 2), 0.0f);
+			pVtx[0].pos = D3DXVECTOR3(g_posQuit.x - (QUIT_SIZE_X / 2), g_posQuit.y + (QUIT_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[1].pos = D3DXVECTOR3(g_posQuit.x - (QUIT_SIZE_X / 2), g_posQuit.y - (QUIT_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[2].pos = D3DXVECTOR3(g_posQuit.x + (QUIT_SIZE_X / 2), g_posQuit.y + (QUIT_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[3].pos = D3DXVECTOR3(g_posQuit.x + (QUIT_SIZE_X / 2), g_posQuit.y - (QUIT_SIZE_Y / 2), Z_AXIS_ZERO);
 
 			// 頂点カラーの設定
 			pVtx[0].col = QUIT_COLOR;
@@ -192,7 +192,7 @@ HRESULT InitPause(void)
 		pVtx[2].tex = D3DXVECTOR2(1.0, 1.0);
 		pVtx[3].tex = D3DXVECTOR2(1.0, 0.0);
 
-		pVtx += 4;
+		pVtx += VTX_NUM;
 	}
 
 	// 頂点バッファをアンロックする
@@ -414,7 +414,7 @@ void UpdatePause(void)
 				}
 			}
 
-			pVtx += 4;
+			pVtx += VTX_NUM;
 		}
 
 		// 頂点バッファをアンロックする
@@ -468,7 +468,7 @@ void DrawPause(void)
 		// ポーズの描画
 		pDevice->DrawPrimitive(
 			D3DPT_TRIANGLESTRIP,			// プリミティブの種類
-			nCnt * 4,						// 描画を開始する頂点インデックス
+			nCnt * VTX_NUM,						// 描画を開始する頂点インデックス
 			2);								// 描画するプリミティブの数
 	}
 }

@@ -18,7 +18,6 @@
 #include "sound.h"
 #include "timer.h"
 #include "result.h"
-#include "goal.h"
 
 //=========================================================================================================================
 // マクロ定義
@@ -80,13 +79,13 @@ HRESULT InitGame(void)
 		{
 			if (g_aMapData[nCntX][nCntY] == 1)
 			{
-				D3DXVECTOR3 pos = D3DXVECTOR3(float((SCREEN_WIDTH_R / MAX_MAPDATA_X) * nCntX), float((SCREEN_HEIGHT_U / MAX_MAPDATA_Y) * nCntY), 0.0f);
-				SetBlock(pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), (SCREEN_WIDTH_R / MAX_MAPDATA_X), (SCREEN_HEIGHT_U / MAX_MAPDATA_Y), BLOCKTYPE_BLOCK);
+				D3DXVECTOR3 pos = D3DXVECTOR3(float((SCREEN_WIDTH_R / MAX_MAPDATA_X) * nCntX), float((SCREEN_HEIGHT_U / MAX_MAPDATA_Y) * nCntY), Z_AXIS_ZERO);
+				SetBlock(pos, D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO), (SCREEN_WIDTH_R / MAX_MAPDATA_X), (SCREEN_HEIGHT_U / MAX_MAPDATA_Y), BLOCKTYPE_BLOCK);
 			}
 			else if (g_aMapData[nCntX][nCntY] == 2)
 			{
-				D3DXVECTOR3 pos = D3DXVECTOR3(float((SCREEN_WIDTH_R / MAX_MAPDATA_X) * nCntX), float((SCREEN_HEIGHT_U / MAX_MAPDATA_Y) * nCntY), 0.0f);
-				SetBlock(pos, D3DXVECTOR3(0.0f, 0.0f, 0.0f), (SCREEN_WIDTH_R / MAX_MAPDATA_X), (SCREEN_HEIGHT_U / MAX_MAPDATA_Y), BLOCKTYPE_GOAL);
+				D3DXVECTOR3 pos = D3DXVECTOR3(float((SCREEN_WIDTH_R / MAX_MAPDATA_X) * nCntX), float((SCREEN_HEIGHT_U / MAX_MAPDATA_Y) * nCntY), Z_AXIS_ZERO);
+				SetBlock(pos, D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO), (SCREEN_WIDTH_R / MAX_MAPDATA_X), (SCREEN_HEIGHT_U / MAX_MAPDATA_Y), BLOCKTYPE_GOAL);
 			}
 		}
 	}
@@ -152,7 +151,6 @@ void UpdateGame(void)
 {
 	PLAYER *pPlayer;
 	/*GOAL *pGoal;*/
-	int nResult = GetResult();
 
 	pPlayer = GetPlayer();
 	/*pGoal = GetGoal();*/
@@ -190,19 +188,6 @@ void UpdateGame(void)
 
 		// スコアの更新処理
 		UpdateScore();
-	}
-
-
-
-	
-
-	if ( GetKeyboardTrigger(DIK_6) == true && g_bPause == false)
-	{
-		if (nFade == FADE_NONE)
-		{
-			nResult = CLEAR_NUMBER;
-			SetFade(FADE_OUT, MODE_RESULT);
-		}
 	}
 }
 

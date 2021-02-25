@@ -8,6 +8,8 @@
 #include "block.h"
 #include "wire.h"
 #include "Score.h"
+#include "fade.h"
+#include "result.h"
 
 //=========================================================================================================================
 // グローバル変数
@@ -33,7 +35,7 @@ HRESULT InitPlayer(void)
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer(
-		sizeof(VERTEX_2D) * 4,							// 
+		sizeof(VERTEX_2D) * VTX_NUM,							// 
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -44,14 +46,14 @@ HRESULT InitPlayer(void)
 	}
 
 	// プレイヤー情報の初期化
-	g_player.pos = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
-	g_player.move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_player.pos = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
+	g_player.move = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
 	g_player.fWidth = 0.0f;
 	g_player.fHeight = 0.0f;
 	g_player.bJump = true;
 	g_player.nCounterAnim = 0;
 	g_player.nPatternAnim = 0;
-	g_player.rotPlayer = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_player.rotPlayer = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
 	g_player.fLengthPlayer = 0.0f;
 	g_player.fAnglePlayer = 0.0f;
 	g_player.state = PLAYERSTATE_NORMAL;
@@ -72,20 +74,20 @@ HRESULT InitPlayer(void)
 	g_player.fAnglePlayer = atan2f(PLAYER_SIZE_VERTEX_X, PLAYER_SIZE_Y);
 
 	// プレイヤーの回転角
-	g_player.rotPlayer = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+	g_player.rotPlayer = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
 
 	// 中心座標の設定
-	g_player.pos = D3DXVECTOR3(20.0f, SCREEN_HEIGHT_U - 25.0f, 0.0f);
+	g_player.pos = D3DXVECTOR3(20.0f, SCREEN_HEIGHT_U - 25.0f, Z_AXIS_ZERO);
 
 	// プレイヤーの幅と高さの設定
 	g_player.fWidth = PLAYER_SIZE_VERTEX_X;
 	g_player.fHeight = PLAYER_SIZE_Y;
 
 	// 頂点座標の設定
-	pVtx[0].pos = D3DXVECTOR3(g_player.pos.x - g_player.fWidth, g_player.pos.y, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(g_player.pos.x - g_player.fWidth, g_player.pos.y - g_player.fHeight, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(g_player.pos.x + g_player.fWidth, g_player.pos.y, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(g_player.pos.x + g_player.fWidth, g_player.pos.y - g_player.fHeight, 0.0f);
+	pVtx[0].pos = D3DXVECTOR3(g_player.pos.x - g_player.fWidth, g_player.pos.y, Z_AXIS_ZERO);
+	pVtx[1].pos = D3DXVECTOR3(g_player.pos.x - g_player.fWidth, g_player.pos.y - g_player.fHeight, Z_AXIS_ZERO);
+	pVtx[2].pos = D3DXVECTOR3(g_player.pos.x + g_player.fWidth, g_player.pos.y, Z_AXIS_ZERO);
+	pVtx[3].pos = D3DXVECTOR3(g_player.pos.x + g_player.fWidth, g_player.pos.y - g_player.fHeight, Z_AXIS_ZERO);
 
 	// rhwの設定
 	pVtx[0].rhw = 1.0f;
@@ -137,13 +139,9 @@ void UninitPlayer(void)
 void UpdatePlayer(void)
 {
 	VERTEX_2D *pVtx;
-	PLAYER *pPlayer;
-	BLOCK *pBlock;
-	WIRE *pWire;
-
-	pPlayer = GetPlayer();
-	pBlock = GetBlock();
-	pWire = GetWire();
+	PLAYER *pPlayer = GetPlayer();
+	BLOCK *pBlock = GetBlock();
+	WIRE *pWire = GetWire();
 
 	// 前回の位置を保存
 	pPlayer->posOld = pPlayer->pos;
@@ -173,21 +171,21 @@ void UpdatePlayer(void)
 			{
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
-					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, 0.0f), D3DXVECTOR3(-WIRE_EXTEND_SPD / 1.4f, -WIRE_EXTEND_SPD / 1.4f, 0.0f), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
+					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(-WIRE_EXTEND_SPD / 1.4f, -WIRE_EXTEND_SPD / 1.4f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
 				}
 			}
 			else if (GetKeyboardPress(DIK_D) == true)
 			{
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
-					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, 0.0f), D3DXVECTOR3(WIRE_EXTEND_SPD / 1.4f, -WIRE_EXTEND_SPD / 1.4f, 0.0f), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
+					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(WIRE_EXTEND_SPD / 1.4f, -WIRE_EXTEND_SPD / 1.4f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
 				}
 			}
 			else
 			{
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
-					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, 0.0f), D3DXVECTOR3(0.0f, -WIRE_EXTEND_SPD, 0.0f), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
+					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(0.0f, -WIRE_EXTEND_SPD, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
 				}
 			}
 		}
@@ -197,21 +195,21 @@ void UpdatePlayer(void)
 			{
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
-					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, 0.0f), D3DXVECTOR3(-WIRE_EXTEND_SPD / 1.4f, WIRE_EXTEND_SPD / 1.4f, 0.0f), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
+					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(-WIRE_EXTEND_SPD / 1.4f, WIRE_EXTEND_SPD / 1.4f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
 				}
 			}
 			else if (GetKeyboardPress(DIK_D) == true)
 			{
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
-					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, 0.0f), D3DXVECTOR3(WIRE_EXTEND_SPD / 1.4f, WIRE_EXTEND_SPD / 1.4f, 0.0f), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
+					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(WIRE_EXTEND_SPD / 1.4f, WIRE_EXTEND_SPD / 1.4f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
 				}
 			}
 			else
 			{
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
-					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, 0.0f), D3DXVECTOR3(0.0f, WIRE_EXTEND_SPD, 0.0f), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
+					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(0.0f, WIRE_EXTEND_SPD, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
 				}
 			}
 		}
@@ -219,21 +217,21 @@ void UpdatePlayer(void)
 		{
 			if (GetKeyboardTrigger(DIK_U) == true)
 			{
-				SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, 0.0f), D3DXVECTOR3(-WIRE_EXTEND_SPD, 0.0f, 0.0f), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
+				SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(-WIRE_EXTEND_SPD, 0.0f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
 			}
 		}
 		else if (GetKeyboardPress(DIK_D) == true)
 		{
 			if (GetKeyboardTrigger(DIK_U) == true)
 			{
-				SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, 0.0f), D3DXVECTOR3(WIRE_EXTEND_SPD, 0.0f, 0.0f), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
+				SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(WIRE_EXTEND_SPD, 0.0f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
 			}
 		}
 		else
 		{
 			if (GetKeyboardTrigger(DIK_U) == true)
 			{
-				SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, 0.0f), D3DXVECTOR3(WIRE_EXTEND_SPD, 0.0f, 0.0f), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
+				SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(WIRE_EXTEND_SPD, 0.0f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
 			}
 		}
 
@@ -425,7 +423,7 @@ void UpdatePlayer(void)
 		if (pPlayer->pos.y > SCREEN_HEIGHT_U + 310)
 		{
 			pPlayer->state = PLAYERSTATE_WAIT;
-			pPlayer->move = D3DXVECTOR3(0.0f, 0.0f, 0.0f);
+			pPlayer->move = D3DXVECTOR3(0.0f, 0.0f, Z_AXIS_ZERO);
 		}
 
 
@@ -438,11 +436,10 @@ void UpdatePlayer(void)
 			pPlayer->bJump = true;
 		}
 
-
 	}
 	else if (pPlayer->state == PLAYERSTATE_WAIT)
 	{
-		pPlayer->pos = D3DXVECTOR3(20.0f, SCREEN_HEIGHT_U - 25.0f, 0.0f);
+		pPlayer->pos = D3DXVECTOR3(20.0f, SCREEN_HEIGHT_U - 25.0f, Z_AXIS_ZERO);
 
 		pPlayer->nCounterState -= TIMER_COUNT;
 
@@ -467,10 +464,10 @@ void UpdatePlayer(void)
 		}
 	}
 
-	pVtx[0].pos = D3DXVECTOR3(pPlayer->pos.x - PLAYER_SIZE_VERTEX_X, pPlayer->pos.y, 0.0f);
-	pVtx[1].pos = D3DXVECTOR3(pPlayer->pos.x - PLAYER_SIZE_VERTEX_X, pPlayer->pos.y - PLAYER_SIZE_Y, 0.0f);
-	pVtx[2].pos = D3DXVECTOR3(pPlayer->pos.x + PLAYER_SIZE_VERTEX_X, pPlayer->pos.y, 0.0f);
-	pVtx[3].pos = D3DXVECTOR3(pPlayer->pos.x + PLAYER_SIZE_VERTEX_X, pPlayer->pos.y - PLAYER_SIZE_Y, 0.0f);
+	pVtx[0].pos = D3DXVECTOR3(pPlayer->pos.x - PLAYER_SIZE_VERTEX_X, pPlayer->pos.y, Z_AXIS_ZERO);
+	pVtx[1].pos = D3DXVECTOR3(pPlayer->pos.x - PLAYER_SIZE_VERTEX_X, pPlayer->pos.y - PLAYER_SIZE_Y, Z_AXIS_ZERO);
+	pVtx[2].pos = D3DXVECTOR3(pPlayer->pos.x + PLAYER_SIZE_VERTEX_X, pPlayer->pos.y, Z_AXIS_ZERO);
+	pVtx[3].pos = D3DXVECTOR3(pPlayer->pos.x + PLAYER_SIZE_VERTEX_X, pPlayer->pos.y - PLAYER_SIZE_Y, Z_AXIS_ZERO);
 
 	// 頂点バッファをアンロックする
 	g_pVtxBuffplayer->Unlock();

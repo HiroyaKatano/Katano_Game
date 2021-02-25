@@ -47,7 +47,7 @@ HRESULT InitTitle(void)
 
 	// 頂点バッファの生成
 	if (FAILED(pDevice->CreateVertexBuffer(
-		sizeof(VERTEX_2D) * 4 * MAX_TYPE_TITLE,
+		sizeof(VERTEX_2D) * VTX_NUM * MAX_TYPE_TITLE,
 		D3DUSAGE_WRITEONLY,
 		FVF_VERTEX_2D,
 		D3DPOOL_MANAGED,
@@ -80,10 +80,10 @@ HRESULT InitTitle(void)
 	g_pVtxBuffTitle->Lock(0, 0, (void**)&pVtx, 0);
 
 	// 頂点座標の設定
-	g_posTitleBG = D3DXVECTOR3(g_posTitleBG.x, g_posTitleBG.y, 0.0f);
-	g_posTitleLogoShadow = D3DXVECTOR3(g_posTitleLogoShadow.x, g_posTitleLogoShadow.y, 0.0f);
-	//g_posTitleLogo = D3DXVECTOR3(g_posTitleLogo.x, g_posTitleLogo.y, 0.0f);
-	g_posEnterSign = D3DXVECTOR3(g_posEnterSign.x, g_posEnterSign.y, 0.0f);
+	g_posTitleBG = D3DXVECTOR3(g_posTitleBG.x, g_posTitleBG.y, Z_AXIS_ZERO);
+	g_posTitleLogoShadow = D3DXVECTOR3(g_posTitleLogoShadow.x, g_posTitleLogoShadow.y, Z_AXIS_ZERO);
+	//g_posTitleLogo = D3DXVECTOR3(g_posTitleLogo.x, g_posTitleLogo.y, Z_AXIS_ZERO);
+	g_posEnterSign = D3DXVECTOR3(g_posEnterSign.x, g_posEnterSign.y, Z_AXIS_ZERO);
 
 	// 頂点カラーの設定
 	g_colorEnterSign = ENTER_SIGN_COLOR_OFF;
@@ -94,10 +94,10 @@ HRESULT InitTitle(void)
 		{
 		case 0:
 			// タイトル背景
-			pVtx[0].pos = D3DXVECTOR3(SCREEN_WIDTH_L, TITLE_BG_SIZE_Y, 0.0f);
-			pVtx[1].pos = D3DXVECTOR3(SCREEN_WIDTH_L, SCREEN_HEIGHT_T, 0.0f);
-			pVtx[2].pos = D3DXVECTOR3(TITLE_BG_SIZE_X, TITLE_BG_SIZE_Y, 0.0f);
-			pVtx[3].pos = D3DXVECTOR3(TITLE_BG_SIZE_X, SCREEN_HEIGHT_T, 0.0f);
+			pVtx[0].pos = D3DXVECTOR3(SCREEN_WIDTH_L, TITLE_BG_SIZE_Y, Z_AXIS_ZERO);
+			pVtx[1].pos = D3DXVECTOR3(SCREEN_WIDTH_L, SCREEN_HEIGHT_T, Z_AXIS_ZERO);
+			pVtx[2].pos = D3DXVECTOR3(TITLE_BG_SIZE_X, TITLE_BG_SIZE_Y, Z_AXIS_ZERO);
+			pVtx[3].pos = D3DXVECTOR3(TITLE_BG_SIZE_X, SCREEN_HEIGHT_T, Z_AXIS_ZERO);
 
 			pVtx[0].tex = D3DXVECTOR2(0.0f, 1.0f);
 			pVtx[1].tex = D3DXVECTOR2(0.0f, 0.0f);
@@ -112,10 +112,10 @@ HRESULT InitTitle(void)
 			break;
 		case 2:
 			// タイトルロゴ影
-			pVtx[0].pos = D3DXVECTOR3(g_posTitleLogoShadow.x - (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y + (TITLE_LOGOB_SIZE_Y / 2), 0.0f);
-			pVtx[1].pos = D3DXVECTOR3(g_posTitleLogoShadow.x - (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y - (TITLE_LOGOB_SIZE_Y / 2), 0.0f);
-			pVtx[2].pos = D3DXVECTOR3(g_posTitleLogoShadow.x + (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y + (TITLE_LOGOB_SIZE_Y / 2), 0.0f);
-			pVtx[3].pos = D3DXVECTOR3(g_posTitleLogoShadow.x + (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y - (TITLE_LOGOB_SIZE_Y / 2), 0.0f);
+			pVtx[0].pos = D3DXVECTOR3(g_posTitleLogoShadow.x - (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y + (TITLE_LOGOB_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[1].pos = D3DXVECTOR3(g_posTitleLogoShadow.x - (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y - (TITLE_LOGOB_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[2].pos = D3DXVECTOR3(g_posTitleLogoShadow.x + (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y + (TITLE_LOGOB_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[3].pos = D3DXVECTOR3(g_posTitleLogoShadow.x + (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y - (TITLE_LOGOB_SIZE_Y / 2), Z_AXIS_ZERO);
 
 			// 頂点情報の設定
 			pVtx[0].tex = D3DXVECTOR2(0.0, 1.0);
@@ -131,10 +131,10 @@ HRESULT InitTitle(void)
 			break;
 		//case 2:
 		//	// タイトルロゴ
-		//	pVtx[0].pos = D3DXVECTOR3(g_posTitleLogo.x - (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y + (TITLE_LOGOF_SIZE_Y / 2), 0.0f);
-		//	pVtx[1].pos = D3DXVECTOR3(g_posTitleLogo.x - (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y - (TITLE_LOGOF_SIZE_Y / 2), 0.0f);
-		//	pVtx[2].pos = D3DXVECTOR3(g_posTitleLogo.x + (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y + (TITLE_LOGOF_SIZE_Y / 2), 0.0f);
-		//	pVtx[3].pos = D3DXVECTOR3(g_posTitleLogo.x + (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y - (TITLE_LOGOF_SIZE_Y / 2), 0.0f);
+		//	pVtx[0].pos = D3DXVECTOR3(g_posTitleLogo.x - (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y + (TITLE_LOGOF_SIZE_Y / 2), Z_AXIS_ZERO);
+		//	pVtx[1].pos = D3DXVECTOR3(g_posTitleLogo.x - (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y - (TITLE_LOGOF_SIZE_Y / 2), Z_AXIS_ZERO);
+		//	pVtx[2].pos = D3DXVECTOR3(g_posTitleLogo.x + (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y + (TITLE_LOGOF_SIZE_Y / 2), Z_AXIS_ZERO);
+		//	pVtx[3].pos = D3DXVECTOR3(g_posTitleLogo.x + (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y - (TITLE_LOGOF_SIZE_Y / 2), Z_AXIS_ZERO);
 
 		//	// 頂点カラーの設定
 		//	pVtx[0].col = TITLE_LOGO_COLOR;
@@ -144,10 +144,10 @@ HRESULT InitTitle(void)
 		//	break;
 		case 1:
 			// エンターサイン
-			pVtx[0].pos = D3DXVECTOR3(g_posEnterSign.x - (FLASHING_ENTER_SIZE_X / 2), g_posEnterSign.y + (FLASHING_ENTER_SIZE_Y / 2), 0.0f);
-			pVtx[1].pos = D3DXVECTOR3(g_posEnterSign.x - (FLASHING_ENTER_SIZE_X / 2), g_posEnterSign.y - (FLASHING_ENTER_SIZE_Y / 2), 0.0f);
-			pVtx[2].pos = D3DXVECTOR3(g_posEnterSign.x + (FLASHING_ENTER_SIZE_X / 2), g_posEnterSign.y + (FLASHING_ENTER_SIZE_Y / 2), 0.0f);
-			pVtx[3].pos = D3DXVECTOR3(g_posEnterSign.x + (FLASHING_ENTER_SIZE_X / 2), g_posEnterSign.y - (FLASHING_ENTER_SIZE_Y / 2), 0.0f);
+			pVtx[0].pos = D3DXVECTOR3(g_posEnterSign.x - (FLASHING_ENTER_SIZE_X / 2), g_posEnterSign.y + (FLASHING_ENTER_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[1].pos = D3DXVECTOR3(g_posEnterSign.x - (FLASHING_ENTER_SIZE_X / 2), g_posEnterSign.y - (FLASHING_ENTER_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[2].pos = D3DXVECTOR3(g_posEnterSign.x + (FLASHING_ENTER_SIZE_X / 2), g_posEnterSign.y + (FLASHING_ENTER_SIZE_Y / 2), Z_AXIS_ZERO);
+			pVtx[3].pos = D3DXVECTOR3(g_posEnterSign.x + (FLASHING_ENTER_SIZE_X / 2), g_posEnterSign.y - (FLASHING_ENTER_SIZE_Y / 2), Z_AXIS_ZERO);
 
 			// 頂点カラーの設定
 			pVtx[0].col = g_colorEnterSign;
@@ -178,7 +178,7 @@ HRESULT InitTitle(void)
 		pVtx[2].rhw = 1.0f;
 		pVtx[3].rhw = 1.0f;
 
-		pVtx += 4;
+		pVtx += VTX_NUM;
 	}
 
 
@@ -255,16 +255,16 @@ void UpdateTitle(void)
 	pVtx[3].tex = D3DXVECTOR2(1.0f + g_fTexTitle_U, 0.0f + g_fTexTitle_V);
 
 	// タイトルロゴ影
-	pVtx[8].pos = D3DXVECTOR3(g_posTitleLogoShadow.x - (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y + (TITLE_LOGOB_SIZE_Y / 2), 0.0f);
-	pVtx[9].pos = D3DXVECTOR3(g_posTitleLogoShadow.x - (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y - (TITLE_LOGOB_SIZE_Y / 2), 0.0f);
-	pVtx[10].pos = D3DXVECTOR3(g_posTitleLogoShadow.x + (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y + (TITLE_LOGOB_SIZE_Y / 2), 0.0f);
-	pVtx[11].pos = D3DXVECTOR3(g_posTitleLogoShadow.x + (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y - (TITLE_LOGOB_SIZE_Y / 2), 0.0f);
+	pVtx[8].pos = D3DXVECTOR3(g_posTitleLogoShadow.x - (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y + (TITLE_LOGOB_SIZE_Y / 2), Z_AXIS_ZERO);
+	pVtx[9].pos = D3DXVECTOR3(g_posTitleLogoShadow.x - (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y - (TITLE_LOGOB_SIZE_Y / 2), Z_AXIS_ZERO);
+	pVtx[10].pos = D3DXVECTOR3(g_posTitleLogoShadow.x + (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y + (TITLE_LOGOB_SIZE_Y / 2), Z_AXIS_ZERO);
+	pVtx[11].pos = D3DXVECTOR3(g_posTitleLogoShadow.x + (TITLE_LOGOB_SIZE_X / 2), g_posTitleLogoShadow.y - (TITLE_LOGOB_SIZE_Y / 2), Z_AXIS_ZERO);
 
 	//// タイトルロゴ
-	//pVtx[8].pos = D3DXVECTOR3(g_posTitleLogo.x - (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y + (TITLE_LOGOF_SIZE_Y / 2), 0.0f);
-	//pVtx[9].pos = D3DXVECTOR3(g_posTitleLogo.x - (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y - (TITLE_LOGOF_SIZE_Y / 2), 0.0f);
-	//pVtx[10].pos = D3DXVECTOR3(g_posTitleLogo.x + (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y + (TITLE_LOGOF_SIZE_Y / 2), 0.0f);
-	//pVtx[11].pos = D3DXVECTOR3(g_posTitleLogo.x + (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y - (TITLE_LOGOF_SIZE_Y / 2), 0.0f);
+	//pVtx[8].pos = D3DXVECTOR3(g_posTitleLogo.x - (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y + (TITLE_LOGOF_SIZE_Y / 2), Z_AXIS_ZERO);
+	//pVtx[9].pos = D3DXVECTOR3(g_posTitleLogo.x - (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y - (TITLE_LOGOF_SIZE_Y / 2), Z_AXIS_ZERO);
+	//pVtx[10].pos = D3DXVECTOR3(g_posTitleLogo.x + (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y + (TITLE_LOGOF_SIZE_Y / 2), Z_AXIS_ZERO);
+	//pVtx[11].pos = D3DXVECTOR3(g_posTitleLogo.x + (TITLE_LOGOF_SIZE_X / 2), g_posTitleLogo.y - (TITLE_LOGOF_SIZE_Y / 2), Z_AXIS_ZERO);
 
 	// エンターサイン
 	if (g_posTitleLogoShadow.y < 300.0f)
@@ -368,7 +368,7 @@ void DrawTitle(void)
 		// タイトルの描画
 		pDevice->DrawPrimitive(
 			D3DPT_TRIANGLESTRIP,			// プリミティブの種類
-			nCnt * 4,						// 描画を開始する頂点インデックス
+			nCnt * VTX_NUM,						// 描画を開始する頂点インデックス
 			2);								// 描画するプリミティブの数
 	}
 }
