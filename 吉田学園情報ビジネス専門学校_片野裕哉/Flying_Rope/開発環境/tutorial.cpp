@@ -123,7 +123,7 @@ void UpdateTutorial(void)
 	{
 		if (nFade == FADE_NONE)
 		{
-			SetFade(FADE_OUT, MODE_GAME);
+			SetFade(FADE_OUT, MODE_STAGESELECT);
 		}
 	}
 }

@@ -18,6 +18,7 @@
 #include "sound.h"
 #include "timer.h"
 #include "result.h"
+#include "StageSelect.h"
 
 //=========================================================================================================================
 // マクロ定義
@@ -40,19 +41,34 @@ HRESULT InitGame(void)
 {
 	// ファイルのポインタ
 	FILE *pFile;
-	BLOCK *pBlock;
-	pBlock = GetBlock();
+	BLOCK *pBlock = GetBlock();
+	int nStageNumber = GetStageNumber();
 
-	pFile = fopen("data\\MAP_DATA\\map_00.csv", "r");
+	switch (nStageNumber)
+	{
+	case STAGE_ONE:
+		pFile = fopen("data\\MAP_DATA\\map_00.csv", "r");
+		break;
+	case STAGE_TWO:
+		pFile = fopen("data\\MAP_DATA\\map_01.csv", "r");
+		break;
+	case STAGE_THREE:
+		pFile = fopen("data\\MAP_DATA\\map_02.csv", "r");
+		break;
+	case STAGE_FOUR:
+		pFile = fopen("data\\MAP_DATA\\map_03.csv", "r");
+		break;
+	default:
+		pFile = NULL;
+		break;
+	}
+	
 
 	// BGの初期化処理
 	InitBG();
 
 	// ブロックの初期化
 	InitBlock();
-
-	//// ゴールの初期化
-	//InitGoal();
 
 	// ブロックのセット処理
 	int nCntX = 0, nCntY = 0;
@@ -128,9 +144,6 @@ void UninitGame(void)
 	// スコアの終了処理
 	UninitScore();
 
-	//// ゴールの終了処理
-	//UninitGoal();
-
 	// ワイヤーの終了処理
 	UninitWire();
 
@@ -150,10 +163,8 @@ void UninitGame(void)
 void UpdateGame(void)
 {
 	PLAYER *pPlayer;
-	/*GOAL *pGoal;*/
 
 	pPlayer = GetPlayer();
-	/*pGoal = GetGoal();*/
 	int nFade = GetFade();
 
 	if (GetKeyboardTrigger(DIK_P) == true)
@@ -180,9 +191,6 @@ void UpdateGame(void)
 		// プレイヤーの更新処理
 		UpdatePlayer();
 
-		//// ゴールの更新処理
-		//UpdateGoal();
-
 		//タイマーの更新処理
 		UpdateTimer();
 
@@ -204,9 +212,6 @@ void DrawGame(void)
 
 		// ワイヤーの描画処理
 		DrawWire();
-
-		//// ゴールの描画処理
-		//DrawGoal();
 
 		// プレイヤーの描画処理
 		DrawPlayer();

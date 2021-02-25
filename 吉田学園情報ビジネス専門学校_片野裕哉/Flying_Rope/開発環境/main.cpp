@@ -16,6 +16,7 @@
 #include "fade.h"
 #include "sound.h"
 #include "tutorial.h"
+#include "StageSelect.h"
 
 //=========================================================================================================================
 // マクロ定義
@@ -349,6 +350,11 @@ void Uninit(void)
 		UninitTutorial();
 		break;
 
+	case MODE_STAGESELECT:
+		// チュートリアル画面の終了処理
+		UninitStageSelect();
+		break;
+
 	case MODE_GAME:
 		// ゲーム画面の終了処理
 		UninitGame();
@@ -405,6 +411,11 @@ void Update(void)
 		UpdateTutorial();
 		break;
 
+	case MODE_STAGESELECT:
+		// ステージセレクト画面の更新処理
+		UpdateStageSelect();
+		break;
+
 	case MODE_GAME:
 		// ゲーム画面の更新処理
 		UpdateGame();
@@ -450,6 +461,11 @@ void Draw(void)
 			DrawTutorial();
 			break;
 
+		case MODE_STAGESELECT:
+			// ステージセレクト画面の描画処理
+			DrawStageSelect();
+			break;
+
 		case MODE_GAME:
 			// ゲーム画面の描画処理
 			DrawGame();
@@ -464,8 +480,8 @@ void Draw(void)
 		//
 		DrawFade();
 
-		////
-		//DrawFPS();
+		//
+		DrawFPS();
 
 		// 描画の終了
 		g_pD3DDevice->EndScene();
@@ -519,6 +535,11 @@ void SetMode(MODE mode)
 		UninitTutorial();
 		break;
 
+	case MODE_STAGESELECT:
+		// ステージセレクト画面の終了処理
+		UninitStageSelect();
+		break;
+
 	case MODE_GAME:
 		UninitGame();
 		break;
@@ -537,6 +558,11 @@ void SetMode(MODE mode)
 	case MODE_TUTORIAL:
 		// チュートリアル画面の初期化処理
 		InitTutorial();
+		break;
+
+	case MODE_STAGESELECT:
+		// ステージセレクト画面の初期化処理
+		InitStageSelect();
 		break;
 
 	case MODE_GAME:

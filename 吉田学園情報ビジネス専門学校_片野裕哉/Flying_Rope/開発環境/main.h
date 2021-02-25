@@ -53,10 +53,11 @@ typedef struct
 //モード
 typedef enum
 {
-	MODE_TITLE = 0,	//タイトル画面
-	MODE_TUTORIAL,	//チュートリアル画面
-	MODE_GAME,		//ゲーム画面
-	MODE_RESULT,	//リザルト画面
+	MODE_TITLE = 0,		//タイトル画面
+	MODE_TUTORIAL,		//チュートリアル画面
+	MODE_STAGESELECT,	// ステージセレクト画面
+	MODE_GAME,			//ゲーム画面
+	MODE_RESULT,		//リザルト画面
 	MODE_MAX
 } MODE;
 
