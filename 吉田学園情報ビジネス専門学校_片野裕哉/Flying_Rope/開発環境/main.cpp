@@ -479,9 +479,10 @@ void Draw(void)
 
 		//
 		DrawFade();
-
+#ifdef _DEBUG
 		//
 		DrawFPS();
+#endif
 
 		// •`‰æ‚ÌI—¹
 		g_pD3DDevice->EndScene();
