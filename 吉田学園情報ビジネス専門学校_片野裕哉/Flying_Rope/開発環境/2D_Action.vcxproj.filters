@@ -13,58 +13,76 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\SYSTEM">
+      <UniqueIdentifier>{d347dc81-315a-41e0-9555-a8036b5469d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SCENE">
+      <UniqueIdentifier>{47ad64fc-7613-41dd-bd7c-69c33c95182c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SCENE\GAME">
+      <UniqueIdentifier>{7167c3e2-7f1b-42a0-b560-bbde36042dba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SCENE\GAME\PLAYER">
+      <UniqueIdentifier>{9218c423-10f4-42c6-aac4-6fa23aee6e40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SCENE\GAME\STAGE">
+      <UniqueIdentifier>{430a3450-1b03-4cbf-8b84-7b9a6d9cc430}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SCENE\GAME\UI">
+      <UniqueIdentifier>{0c88bb48-ac20-4d20-8927-81c65a86ec6a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="input.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="block.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="BG.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="wire.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="pause.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="result.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="Score.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="title.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="fade.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="game.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="sound.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
-    <ClCompile Include="tutorial.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="ranking.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
-    <ClCompile Include="timer.cpp">
-      <Filter>ソース ファイル</Filter>
+    <ClCompile Include="fade.cpp">
+      <Filter>ソース ファイル\SYSTEM</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>ソース ファイル\SYSTEM</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>ソース ファイル\SYSTEM</Filter>
+    </ClCompile>
+    <ClCompile Include="result.cpp">
+      <Filter>ソース ファイル\SCENE</Filter>
     </ClCompile>
     <ClCompile Include="StageSelect.cpp">
-      <Filter>ソース ファイル</Filter>
+      <Filter>ソース ファイル\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="title.cpp">
+      <Filter>ソース ファイル\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="tutorial.cpp">
+      <Filter>ソース ファイル\SCENE</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル\SYSTEM</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>ソース ファイル\SCENE\GAME\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="wire.cpp">
+      <Filter>ソース ファイル\SCENE\GAME\PLAYER</Filter>
+    </ClCompile>
+    <ClCompile Include="BG.cpp">
+      <Filter>ソース ファイル\SCENE\GAME\STAGE</Filter>
+    </ClCompile>
+    <ClCompile Include="block.cpp">
+      <Filter>ソース ファイル\SCENE\GAME\STAGE</Filter>
+    </ClCompile>
+    <ClCompile Include="pause.cpp">
+      <Filter>ソース ファイル\SCENE\GAME\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>ソース ファイル\SCENE\GAME\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>ソース ファイル\SCENE\GAME\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>ソース ファイル\SCENE\GAME</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
