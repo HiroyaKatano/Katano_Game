@@ -14,8 +14,8 @@
 //=========================================================================================================================
 #define MAX_SCORE (8)	// スコアの最大桁数
 #define SCORE_WIDTH_X			(30.0f)											// スコアの幅
-#define SCORE_LEFT_X			(SCREEN_WIDTH_R - (MAX_SCORE + 1) * SCORE_WIDTH_X)	// 左X座標
-#define SCORE_RIGHT_X			(SCREEN_WIDTH_R - MAX_SCORE * SCORE_WIDTH_X)	// 右X座標
+#define SCORE_LEFT_X			((SCREEN_WIDTH_L + 270) - (MAX_SCORE + 1) * SCORE_WIDTH_X)	// 左X座標
+#define SCORE_RIGHT_X			((SCREEN_WIDTH_L + 270) - MAX_SCORE * SCORE_WIDTH_X)	// 右X座標
 #define SCORE_HIGH_Y			(3.75f)											// 上Y座標
 #define SCORE_LOW_Y				(60.0f)											// 下Y座標
 

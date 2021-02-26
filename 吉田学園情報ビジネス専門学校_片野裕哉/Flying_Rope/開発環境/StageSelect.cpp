@@ -16,7 +16,7 @@ LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffStageSelect = NULL;				// 頂点バッファ
 LPDIRECT3DTEXTURE9 g_apTextureStageSelect[MAX_BG_STAGESELECT] = {};	// ステージセレクト画面のテクスチャ
 char *g_aStageSelectFileName[MAX_BG_STAGESELECT] =
 {// ステージセレクト画面のテクスチャ一覧
-	"data\\TEXTURE\\sky000.jpg",
+	"data\\TEXTURE\\StageSelectBG.jpg",
 	"data\\TEXTURE\\Stage01.jpg",
 	"data\\TEXTURE\\Stage02.jpg",
 	"data\\TEXTURE\\Stage03.jpg",
@@ -290,7 +290,7 @@ HRESULT InitStageSelect(void)
 	// 頂点バッファをアンロックする
 	g_pVtxBuffStageSelect->Unlock();
 
-	PlaySound(SOUND_LABEL_BGM001);
+	PlaySound(SOUND_LABEL_BGM000);
 
 	return S_OK;
 }

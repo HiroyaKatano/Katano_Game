@@ -12,13 +12,13 @@
 // マクロ定義
 //=========================================================================================================================
 #define STAGESELECT_NEUTORAL_COLOR (D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))			// 背景色(赤, 緑, 青, 透明度)
-#define STAGESELECT_NEUTORAL_B_COLOR (D3DXCOLOR(0.0f, 0.0f, 0.0f, 1.0f))			// 背景色(赤, 緑, 青, 透明度)
+#define STAGESELECT_NEUTORAL_B_COLOR (D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.5f))			// 背景色(赤, 緑, 青, 透明度)
 
 #define STAGE_NOT_SELECT_COLOR (D3DXCOLOR(0.5f, 0.5f, 0.5f, 0.5f))			// 背景色(赤, 緑, 青, 透明度)
 #define STAGE_SELECT_COLOR (D3DXCOLOR(1.0f, 1.0f, 1.0f, 1.0f))			// 背景色(赤, 緑, 青, 透明度)
 
 #define MAX_BG_STAGESELECT (10)
-#define STAGESELECT_BG_SIZE_X (SCREEN_WIDTH_R * 4)
+#define STAGESELECT_BG_SIZE_X (SCREEN_WIDTH_R)
 #define STAGESELECT_BG_SIZE_Y (SCREEN_HEIGHT_U)
 
 #define STAGE_TEX_RES (30)
