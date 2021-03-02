@@ -57,6 +57,19 @@ typedef enum
 	PLAYERSTATE_MAX
 }PLAYERSTATE;
 
+typedef enum
+{
+	VEC_UP = 0,
+	VEC_UPPER_R,
+	VEC_RIGHT,
+	VEC_LOWER_R,
+	VEC_LOW,
+	VEC_LOWER_L,
+	VEC_LEFT,
+	VEC_UPPER_L,
+} VEC;
+
+
 // プレイヤーの構造体
 typedef struct
 {
@@ -74,6 +87,7 @@ typedef struct
 	PLAYERSTATE state;		// プレイヤーの状態
 	int nCounterState;		// 状態カウンタ
 
+	VEC vec;
 } PLAYER;
 
 //=========================================================================================================================

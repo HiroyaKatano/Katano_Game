@@ -84,6 +84,9 @@
     <ClCompile Include="game.cpp">
       <Filter>ソース ファイル\SCENE\GAME</Filter>
     </ClCompile>
+    <ClCompile Include="rope_vec.cpp">
+      <Filter>ソース ファイル\SCENE\GAME\PLAYER</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -135,6 +138,9 @@
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="StageSelect.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="rope_vec.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>

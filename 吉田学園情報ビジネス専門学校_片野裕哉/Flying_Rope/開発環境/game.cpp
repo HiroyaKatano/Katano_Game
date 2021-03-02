@@ -19,6 +19,7 @@
 #include "timer.h"
 #include "result.h"
 #include "StageSelect.h"
+#include "rope_vec.h"
 
 //=========================================================================================================================
 // マクロ定義
@@ -111,6 +112,9 @@ HRESULT InitGame(void)
 	// プレイヤーの初期化処理
 	InitPlayer();
 
+	// ロープ射出向き矢印の初期化
+	InitRopeVec();
+
 	// ワイヤーの初期化
 	InitWire();
 
@@ -146,6 +150,9 @@ void UninitGame(void)
 
 	// ワイヤーの終了処理
 	UninitWire();
+
+	// ロープ射出向き矢印の終了処理
+	UninitRopeVec();
 
 	// プレイヤーの終了処理
 	UninitPlayer();
@@ -191,6 +198,9 @@ void UpdateGame(void)
 		// プレイヤーの更新処理
 		UpdatePlayer();
 
+		// ロープ射出向き矢印の更新処理
+		UpdateRopeVec();
+
 		//タイマーの更新処理
 		UpdateTimer();
 
@@ -215,6 +225,9 @@ void DrawGame(void)
 
 		// プレイヤーの描画処理
 		DrawPlayer();
+
+		// ロープ射出向き矢印の描画処理
+		DrawRopeVec();
 
 		// タイマーの描画処理
 		DrawTimer();

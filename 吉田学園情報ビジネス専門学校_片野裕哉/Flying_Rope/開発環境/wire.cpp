@@ -13,14 +13,13 @@
 //
 // マクロ定義
 //
-#define MAX_TYPE_WIRE (1)
 
 //
 // グローバル変数
 //
 LPDIRECT3DVERTEXBUFFER9 g_pVtxBuffWire = NULL;		// 頂点バッファ
 LPDIRECT3DTEXTURE9 g_pTextureWire = NULL;			// テクスチャ
-WIRE g_aWire[MAX_WIRE];							// ワイヤーの上限
+WIRE g_aWire[MAX_WIRE];							// ワイヤーの情報
 
 //
 // 初期化処理
@@ -113,14 +112,11 @@ void UninitWire(void)
 	}
 
 	// テクスチャの開放
-	//for (int nCnt = 0; nCnt < MAX_TYPE_WIRE; nCnt++)
-	//{
 	if (g_pTextureWire != NULL)
 	{
 		g_pTextureWire->Release();
 		g_pTextureWire = NULL;
 	}
-	//}
 }
 
 

@@ -164,6 +164,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="ranking.cpp" />
     <ClCompile Include="result.cpp" />
+    <ClCompile Include="rope_vec.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="sound.cpp" />
     <ClCompile Include="StageSelect.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="player.h" />
     <ClInclude Include="ranking.h" />
     <ClInclude Include="result.h" />
+    <ClInclude Include="rope_vec.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="sound.h" />
     <ClInclude Include="StageSelect.h" />

@@ -169,6 +169,7 @@ void UpdatePlayer(void)
 		{
 			if (GetKeyboardPress(DIK_A) == true)
 			{
+				pPlayer->vec = VEC_UPPER_L;
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
 					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(-WIRE_EXTEND_SPD / 1.4f, -WIRE_EXTEND_SPD / 1.4f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
@@ -176,6 +177,7 @@ void UpdatePlayer(void)
 			}
 			else if (GetKeyboardPress(DIK_D) == true)
 			{
+				pPlayer->vec = VEC_UPPER_R;
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
 					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(WIRE_EXTEND_SPD / 1.4f, -WIRE_EXTEND_SPD / 1.4f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
@@ -183,6 +185,7 @@ void UpdatePlayer(void)
 			}
 			else
 			{
+				pPlayer->vec = VEC_UP;
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
 					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(0.0f, -WIRE_EXTEND_SPD, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
@@ -193,6 +196,7 @@ void UpdatePlayer(void)
 		{
 			if (GetKeyboardPress(DIK_A) == true)
 			{
+				pPlayer->vec = VEC_LOWER_L;
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
 					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(-WIRE_EXTEND_SPD / 1.4f, WIRE_EXTEND_SPD / 1.4f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
@@ -200,6 +204,7 @@ void UpdatePlayer(void)
 			}
 			else if (GetKeyboardPress(DIK_D) == true)
 			{
+				pPlayer->vec = VEC_LOWER_R;
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
 					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(WIRE_EXTEND_SPD / 1.4f, WIRE_EXTEND_SPD / 1.4f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
@@ -207,6 +212,7 @@ void UpdatePlayer(void)
 			}
 			else
 			{
+				pPlayer->vec = VEC_LOW;
 				if (GetKeyboardTrigger(DIK_U) == true)
 				{
 					SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(0.0f, WIRE_EXTEND_SPD, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
@@ -215,6 +221,7 @@ void UpdatePlayer(void)
 		}
 		else if (GetKeyboardPress(DIK_A) == true)
 		{
+			pPlayer->vec = VEC_LEFT;
 			if (GetKeyboardTrigger(DIK_U) == true)
 			{
 				SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(-WIRE_EXTEND_SPD, 0.0f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
@@ -222,6 +229,7 @@ void UpdatePlayer(void)
 		}
 		else if (GetKeyboardPress(DIK_D) == true)
 		{
+			pPlayer->vec = VEC_RIGHT;
 			if (GetKeyboardTrigger(DIK_U) == true)
 			{
 				SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(WIRE_EXTEND_SPD, 0.0f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
@@ -229,6 +237,7 @@ void UpdatePlayer(void)
 		}
 		else
 		{
+			pPlayer->vec = VEC_RIGHT;
 			if (GetKeyboardTrigger(DIK_U) == true)
 			{
 				SetWire(pPlayer->pos + D3DXVECTOR3(0.0f, -PLAYER_SIZE_Y / 2, Z_AXIS_ZERO), D3DXVECTOR3(WIRE_EXTEND_SPD, 0.0f, Z_AXIS_ZERO), WIRE_SIZE_VERTEX_X, WIRE_SIZE_Y);
