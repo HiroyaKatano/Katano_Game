@@ -71,7 +71,7 @@ HRESULT InitScore(void)
 		pVtx += VTX_NUM;
 	}
 
-	g_nScore = 200000;
+	g_nScore = BIGIN_SCORE;
 
 	g_pVtxBuffScore->Unlock();
 

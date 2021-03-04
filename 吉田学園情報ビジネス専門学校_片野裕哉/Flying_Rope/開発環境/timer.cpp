@@ -118,7 +118,7 @@ void UpdateTimer(void)
 	g_nCntTimer++;
 	if (g_nCntTimer % 6 == 0 && nFade == FADE_NONE)
 	{
-		AddScore(300);
+		AddScore(BIGIN_SCORE / g_nTimer / 12);
 	}
 
 	if (g_nCntTimer % 60 == 0 && nFade == FADE_NONE)

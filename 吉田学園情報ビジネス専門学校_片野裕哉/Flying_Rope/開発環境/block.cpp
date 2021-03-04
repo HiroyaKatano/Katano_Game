@@ -69,14 +69,6 @@ HRESULT InitBlock(void)
 	for (int nCntBlock = 0; nCntBlock < MAX_BLOCK; nCntBlock++)
 	{
 		SetVertexBlock(nCntBlock);
-
-		// rhwの設定
-		pVtx[0].rhw = 1.0f;
-		pVtx[1].rhw = 1.0f;
-		pVtx[2].rhw = 1.0f;
-		pVtx[3].rhw = 1.0f;
-
-		pVtx += VTX_NUM;
 	}
 
 	// 頂点バッファをアンロックする
@@ -170,7 +162,7 @@ void DrawBlock(void)
 			// プレイヤーの描画
 			pDevice->DrawPrimitive(
 				D3DPT_TRIANGLESTRIP,			// プリミティブの種類
-				nCntBlock * VTX_NUM,					// 描画を開始する頂点インデックス
+				nCntBlock * VTX_NUM,			// 描画を開始する頂点インデックス
 				2);								// 描画するプリミティブの数
 		}
 	}
@@ -238,6 +230,12 @@ void SetVertexBlock(int nIdx)
 	pVtx[1].tex = D3DXVECTOR2(0.0f, 0.0f);
 	pVtx[2].tex = D3DXVECTOR2(g_aBlock[nIdx].fWidth / g_aBlock[nIdx].fHeight, 1.0f);
 	pVtx[3].tex = D3DXVECTOR2(g_aBlock[nIdx].fWidth / g_aBlock[nIdx].fHeight, 0.0f);
+
+	// rhwの設定
+	pVtx[0].rhw = 1.0f;
+	pVtx[1].rhw = 1.0f;
+	pVtx[2].rhw = 1.0f;
+	pVtx[3].rhw = 1.0f;
 
 	
 	// 頂点バッファの開放
