@@ -4,11 +4,7 @@
 	このファイル内には
 	
 		Shot_Reflection(フォルダ)
-		Flying_Rope(フォルダ)		《 展示・添削 予定作品》
-		3D_Action(フォルダ)
+		Flying_Rope(フォルダ)
 		ポートフォリオ(フォルダ)
 		
 	があります。
-
-	展示・添削予定作品はFlying_Ropeの予定ですので確認する際は
-	Flying_Ropeへお願いいたします。
