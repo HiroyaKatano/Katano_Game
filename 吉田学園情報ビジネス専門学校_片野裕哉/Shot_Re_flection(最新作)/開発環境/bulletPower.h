@@ -21,7 +21,7 @@ class CScene2D;
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-#define MAX_GAUGE_TEX					(3)
+#define MAX_GAUGE_TEX					(4)
 
 //-------------------------------------------------------------------------------
 // 背景クラス(派生クラス)
@@ -44,8 +44,8 @@ public:
 	void SetBulletPower(int nBulletPower);
 	void AddBulletPower(int nValue);
 
-	D3DXVECTOR3 GetPosition(void) { return m_pos; }
-	D3DXVECTOR3 GetScale(void) { return m_scale; }
+	D3DXVECTOR3 GetPosition(void) { return m_aPos[0]; }
+	D3DXVECTOR3 GetScale(void) { return m_aScale[0]; }
 	static int GetBulletPower(void) { return m_nBulletPower; }
 
 private:
@@ -54,8 +54,8 @@ private:
 	CNumber *m_apNumber[2];									// ナンバーのポインタ
 	static int m_nBulletPower;								// 弾数
 
-	D3DXVECTOR3 m_pos;
-	D3DXVECTOR3 m_scale;
+	D3DXVECTOR3 m_aPos[MAX_GAUGE_TEX];
+	D3DXVECTOR3 m_aScale[MAX_GAUGE_TEX];
 };
 
 #endif

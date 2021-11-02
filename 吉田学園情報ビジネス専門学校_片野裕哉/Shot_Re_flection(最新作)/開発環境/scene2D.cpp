@@ -298,7 +298,7 @@ void CScene2D::SetPlayerCol(float nData)
 //*****************************************************************************
 // ゲージ増減処理
 //*****************************************************************************
-void CScene2D::SetGauge(D3DXVECTOR3 pos, D3DXVECTOR3 scale)
+void CScene2D::SetGauge(D3DXVECTOR3 pos, D3DXVECTOR3 scale, int nBulletMax)
 {
 	//位置の設定
 	m_Polygon.pos = pos;
@@ -313,13 +313,34 @@ void CScene2D::SetGauge(D3DXVECTOR3 pos, D3DXVECTOR3 scale)
 	//頂点バッファをロックし、頂点情報へのポインタを取得
 	m_pVtxBuff->Lock(0, 0, (void**)&pVtx, 0);
 
-	//プレイヤーの位置を設定
-	pVtx[0].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2, m_Polygon.pos.y + m_Polygon.scale.y / 2, m_Polygon.pos.z);
-	pVtx[1].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2, m_Polygon.pos.y - m_Polygon.scale.y / 2, m_Polygon.pos.z);
-	pVtx[2].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2 + m_Polygon.scale.x * nBulletNum / 50,
-								m_Polygon.pos.y + m_Polygon.scale.y / 2, m_Polygon.pos.z);
-	pVtx[3].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2 + m_Polygon.scale.x * nBulletNum / 50,
-								m_Polygon.pos.y - m_Polygon.scale.y / 2, m_Polygon.pos.z);
+	if (nBulletMax == 50)
+	{
+		//プレイヤーの位置を設定
+		pVtx[0].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2, m_Polygon.pos.y + m_Polygon.scale.y / 2, m_Polygon.pos.z);
+		pVtx[1].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2, m_Polygon.pos.y - m_Polygon.scale.y / 2, m_Polygon.pos.z);
+		pVtx[2].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2 + m_Polygon.scale.x * nBulletNum / nBulletMax,
+			m_Polygon.pos.y + m_Polygon.scale.y / 2, m_Polygon.pos.z);
+		pVtx[3].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2 + m_Polygon.scale.x * nBulletNum / nBulletMax,
+			m_Polygon.pos.y - m_Polygon.scale.y / 2, m_Polygon.pos.z);
+	}
+	else if (nBulletMax == 0)
+	{
+		//プレイヤーの位置を設定
+		pVtx[0].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2, m_Polygon.pos.y + m_Polygon.scale.y / 2, m_Polygon.pos.z);
+		pVtx[1].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2, m_Polygon.pos.y - m_Polygon.scale.y / 2, m_Polygon.pos.z);
+		pVtx[2].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2, m_Polygon.pos.y + m_Polygon.scale.y / 2, m_Polygon.pos.z);
+		pVtx[3].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2, m_Polygon.pos.y - m_Polygon.scale.y / 2, m_Polygon.pos.z);
+	}
+	else
+	{
+		//プレイヤーの位置を設定
+		pVtx[0].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2, m_Polygon.pos.y + m_Polygon.scale.y / 2, m_Polygon.pos.z);
+		pVtx[1].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2, m_Polygon.pos.y - m_Polygon.scale.y / 2, m_Polygon.pos.z);
+		pVtx[2].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2 + m_Polygon.scale.x * (nBulletNum % 40) / nBulletMax,
+			m_Polygon.pos.y + m_Polygon.scale.y / 2, m_Polygon.pos.z);
+		pVtx[3].pos = D3DXVECTOR3(m_Polygon.pos.x - m_Polygon.scale.x / 2 + m_Polygon.scale.x * (nBulletNum % 40) / nBulletMax,
+			m_Polygon.pos.y - m_Polygon.scale.y / 2, m_Polygon.pos.z);
+	}
 
 	//頂点バッファをアンロックする
 	m_pVtxBuff->Unlock();

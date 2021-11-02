@@ -28,6 +28,7 @@
 #include "fade.h"
 #include "sound.h"
 #include "bulletPower.h"
+#include "titleLogo.h"
 
 //==============================================================================
 // 静的メンバ変数
@@ -79,6 +80,8 @@ HRESULT CManager::Init(HINSTANCE hInstance, HWND hWnd, BOOL bWindow)
 	m_pInputKeyboard = new CInputKeyboard;
 	m_pInputKeyboard->Init(hInstance, hWnd);
 
+	// タイトルロゴテクスチャのロード
+	CTitleLogo::Load();
 
 	// 背景テクスチャのロード
 	CBg::Load();
@@ -157,6 +160,9 @@ void CManager::Uninit()
 
 	// 背景テクスチャのアンロード
 	CBg::Unload();
+	
+	// タイトルロゴテクスチャのアンロード
+	CTitleLogo::Unload();
 
 	// キーボードの破棄
 	if (m_pInputKeyboard != NULL)

@@ -37,6 +37,12 @@
     <Filter Include="ヘッダー ファイル\GAME">
       <UniqueIdentifier>{1b65397b-b56e-40f4-856c-231065cd39ac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\TITLE">
+      <UniqueIdentifier>{3f798da6-b574-469c-b41b-441223a49d22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\TITLE">
+      <UniqueIdentifier>{ee4b1d96-df91-43cf-95b8-7cba5afd8d71}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="bullet.cpp">
@@ -108,6 +114,9 @@
     <ClCompile Include="bulletPower.cpp">
       <Filter>ソース ファイル\UI</Filter>
     </ClCompile>
+    <ClCompile Include="titleLogo.cpp">
+      <Filter>ソース ファイル\TITLE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="title.h">
@@ -178,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="bulletPower.h">
       <Filter>ヘッダー ファイル\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="titleLogo.h">
+      <Filter>ヘッダー ファイル\TITLE</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

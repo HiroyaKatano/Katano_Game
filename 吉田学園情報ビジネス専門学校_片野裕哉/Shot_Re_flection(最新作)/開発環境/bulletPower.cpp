@@ -45,7 +45,8 @@ HRESULT CBulletPower::Load(void)
 	//テクスチャの読み込み
 	D3DXCreateTextureFromFile(pDevice, "data\\TEXTURE\\gauge000.png", &m_apTexture[0]);
 	D3DXCreateTextureFromFile(pDevice, "data\\TEXTURE\\gauge001.png", &m_apTexture[1]);
-	D3DXCreateTextureFromFile(pDevice, "data\\TEXTURE\\gauge002.png", &m_apTexture[2]);
+	D3DXCreateTextureFromFile(pDevice, "data\\TEXTURE\\gauge0011.png", &m_apTexture[2]);
+	D3DXCreateTextureFromFile(pDevice, "data\\TEXTURE\\gauge002.png", &m_apTexture[3]);
 
 	return S_OK;
 }
@@ -95,15 +96,30 @@ HRESULT CBulletPower::Init(D3DXVECTOR3 pos, D3DXVECTOR3 scale)
 		m_apScene2D[nCnt] = new CScene2D;
 		m_apScene2D[nCnt]->Init(pos, scale);
 		m_apScene2D[nCnt]->BindTexture(m_apTexture[nCnt]);
-	}
-	m_pos = pos;
-	m_scale = scale;
+		if (nCnt != 2)
+		{
+			m_aPos[nCnt] = pos;
+		}
+		else if (nCnt == 2)
+		{
+			m_aPos[nCnt] = pos + D3DXVECTOR3(scale.x * 4 / 11, 0.f, 0.f);
+		}
 
-	for (int nCnt = 0; nCnt < 2; nCnt++)
-	{
-		m_apNumber[nCnt] = CNumber::Create(D3DXVECTOR3(SCREEN_WIDTH/2 - 40.f, 50.f, 0.f)
-			+ D3DXVECTOR3(40.f * nCnt, 0.f, 0.f), D3DXVECTOR3(40.f, 80.f, 0.f), 0);
+		if (nCnt != 2)
+		{
+			m_aScale[nCnt] = scale;
+		}
+		else if (nCnt == 2)
+		{
+			m_aScale[nCnt] = scale - D3DXVECTOR3(scale.x * 4 / 5, scale.y * 0.1f, 0.f);
+		}
 	}
+
+	//for (int nCnt = 0; nCnt < 2; nCnt++)
+	//{
+	//	m_apNumber[nCnt] = CNumber::Create(D3DXVECTOR3(SCREEN_WIDTH/2 - 40.f, 50.f, 0.f)
+	//		+ D3DXVECTOR3(40.f * nCnt, 0.f, 0.f), D3DXVECTOR3(40.f, 80.f, 0.f), 0);
+	//}
 
 	return S_OK;
 }
@@ -119,11 +135,11 @@ void CBulletPower::Uninit(void)
 		m_apScene2D[nCnt] = NULL;
 	}
 
-	for (int nCnt = 0; nCnt < 2; nCnt++)
-	{
-		m_apNumber[nCnt]->Uninit();
-		delete m_apNumber[nCnt];
-	}
+	//for (int nCnt = 0; nCnt < 2; nCnt++)
+	//{
+	//	m_apNumber[nCnt]->Uninit();
+	//	delete m_apNumber[nCnt];
+	//}
 
 	Release();
 }
@@ -137,11 +153,22 @@ void CBulletPower::Update(void)
 	{
 		if (nCnt == 1)
 		{
-			m_apScene2D[nCnt]->SetGauge(m_pos,D3DXVECTOR3(m_scale.x, m_scale.y, m_scale.z));
+			m_apScene2D[nCnt]->SetGauge(m_aPos[nCnt], m_aScale[nCnt], 50);
+		}
+		else if (nCnt == 2)
+		{
+			if (m_nBulletPower >= 40)
+			{
+				m_apScene2D[nCnt]->SetGauge(m_aPos[nCnt], m_aScale[nCnt], 10);
+			}
+			else
+			{
+				m_apScene2D[nCnt]->SetGauge(m_aPos[nCnt], m_aScale[nCnt], 0);
+			}
 		}
 		else
 		{
-			m_apScene2D[nCnt]->SetPosition(m_pos, m_scale);
+			m_apScene2D[nCnt]->SetPosition(m_aPos[nCnt], m_aScale[nCnt]);
 		}
 	}
 }
@@ -151,10 +178,10 @@ void CBulletPower::Update(void)
 //=============================================================================
 void CBulletPower::Draw(void)
 {
-	for (int nCnt = 0; nCnt < 2; nCnt++)
-	{
-		m_apNumber[nCnt]->Draw();
-	}
+	//for (int nCnt = 0; nCnt < 2; nCnt++)
+	//{
+	//	m_apNumber[nCnt]->Draw();
+	//}
 }
 
 //=============================================================================
@@ -164,11 +191,11 @@ void CBulletPower::SetBulletPower(int nBulletPower)
 {
 	m_nBulletPower = nBulletPower;
 
-	for (int nCnt = 0; nCnt < 2; nCnt++)
-	{
-		m_apNumber[0]->SetNumber((m_nBulletPower / 10) % 10);
-		m_apNumber[1]->SetNumber((m_nBulletPower) % 10);
-	}
+	//for (int nCnt = 0; nCnt < 2; nCnt++)
+	//{
+	//	m_apNumber[0]->SetNumber((m_nBulletPower / 10) % 10);
+	//	m_apNumber[1]->SetNumber((m_nBulletPower) % 10);
+	//}
 }
 
 //=============================================================================

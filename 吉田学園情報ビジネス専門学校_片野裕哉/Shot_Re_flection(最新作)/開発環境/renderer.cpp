@@ -248,9 +248,6 @@ void CRenderer::DrawData(void)
 	int GameCntTime = CGame::GameCntTime();
 
 	CEnemy *pEnemy = CGame::GetEnemy();
-	float EnePosDistance = pEnemy->GetDistance();
-	float AngleLissajous = pEnemy->GetAngleL();
-
 	float fAlpha = CGame::GetAlpha();
 	float fBeta = CGame::GetBeta();
 	float fDelta = CGame::GetDelta();
@@ -272,8 +269,6 @@ void CRenderer::DrawData(void)
 		nNum += sprintf(&aStr[nNum], "[プレイヤーの弾の種類 : 追尾弾 ]\n");
 	}
 	nNum += sprintf(&aStr[nNum], "[次のリサージュ曲線の移動敵出現まで残り : %ds ]\n", NEXT_LISSAJOUS /60 - GameCntTime/60);
-	nNum += sprintf(&aStr[nNum], "[EnemyPos ～ posの距離 : %.2fs ]\n", EnePosDistance);
-	nNum += sprintf(&aStr[nNum], "[EnemyPosを原点としたときのposの角度 : %.2f ]\n", AngleLissajous);
 	nNum += sprintf(&aStr[nNum], "\n<TABを押した際に生成されるリサージュ曲線の各種データ>\n");
 	nNum += sprintf(&aStr[nNum], "[ Alpha の値 : %.1f ]\n", fAlpha);
 	nNum += sprintf(&aStr[nNum], "[ Beta  の値 : %.1f ]\n", fBeta);

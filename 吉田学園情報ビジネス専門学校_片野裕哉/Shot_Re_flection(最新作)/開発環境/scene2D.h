@@ -58,7 +58,7 @@ public:
 	void CScene2D::SetPlayerCol(float nData);
 	//D3DXCOLOR GetColor(void) { return m_col; }
 
-	void SetGauge(D3DXVECTOR3 pos, D3DXVECTOR3 scale);
+	void SetGauge(D3DXVECTOR3 pos, D3DXVECTOR3 scale, int nBulletMax);
 
 
 	typedef struct

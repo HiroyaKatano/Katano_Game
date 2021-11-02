@@ -18,6 +18,7 @@
 //*****************************************************************************
 class CScene2D;
 class CBg;
+class CTitleLogo;
 
 //*****************************************************************************
 // É}ÉNÉçíËã`
@@ -47,6 +48,7 @@ private:
 	static LPDIRECT3DTEXTURE9 m_pTexture;
 	CScene2D *m_pScene2D;
 	static CBg *m_pBg;
+	static CTitleLogo *m_pTitleLogo;
 };
 
 #endif

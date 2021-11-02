@@ -14,6 +14,7 @@
 #include "manager.h"
 #include "fade.h"
 #include "sound.h"
+#include "titleLogo.h"
 
 //*****************************************************************************
 // マクロ定義
@@ -24,6 +25,7 @@
 // 静的メンバ変数
 //*****************************************************************************
 CBg *CTitle::m_pBg = NULL;
+CTitleLogo *CTitle::m_pTitleLogo = NULL;
 
 //*****************************************************************************
 // コンストラクタ
@@ -64,6 +66,8 @@ HRESULT CTitle::Init(D3DXVECTOR3 pos, D3DXVECTOR3 scale)
 {
 	// 背景の生成
 	m_pBg = CBg::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0.0f), D3DXVECTOR3(SCREEN_WIDTH, SCREEN_HEIGHT, 0.0f));
+
+	m_pTitleLogo = CTitleLogo::Create(D3DXVECTOR3(SCREEN_WIDTH / 2, 0.f, 0.f), D3DXVECTOR3(SCREEN_WIDTH / 2, SCREEN_WIDTH / 5, 0.f));
 
 	CSound *pSound = CManager::GetSound();
 	pSound->Play(CSound::SOUND_LABEL_BGM000);
