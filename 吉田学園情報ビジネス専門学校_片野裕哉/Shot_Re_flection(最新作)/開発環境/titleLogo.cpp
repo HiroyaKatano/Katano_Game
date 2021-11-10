@@ -106,7 +106,7 @@ HRESULT CTitleLogo::Init(D3DXVECTOR3 pos, D3DXVECTOR3 scale)
 		}
 		else if (nCnt == 2)
 		{
-			m_aScale[nCnt] = scale - D3DXVECTOR3(0.f, scale.y / 2, 0.f);
+			m_aScale[nCnt] = scale * 0.9f - D3DXVECTOR3(0.f, scale.y * 2 / 3, 0.f);
 		}
 	}
 

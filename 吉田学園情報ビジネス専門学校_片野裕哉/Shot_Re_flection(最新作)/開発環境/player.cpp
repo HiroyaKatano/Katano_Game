@@ -152,6 +152,7 @@ void CPlayer::Update(void)
 	//	m_Polygon.fScale -= SCELE_SPD;
 	//}
 
+#ifdef _DEBUG
 	if (pInputKeyboard->GetTrigger(DIK_1) == true)
 	{ // キー入力処理
 		m_nSelectBullet = CBullet::USEBULLET_NONE;
@@ -164,6 +165,7 @@ void CPlayer::Update(void)
 	{ // キー入力処理
 		m_nSelectBullet = CBullet::USEBULLET_SPREAD;
 	}
+#endif
 
 	if (pInputKeyboard->GetPress(DIK_A) == true)
 	{ // キー入力処理
@@ -312,6 +314,7 @@ void CPlayer::Update(void)
 	//	,D3DXVECTOR3(60.0f, 60.0f, 0.0f),D3DXCOLOR(0.4f, 0.4f, 1.f, 1.f), 15);
 
 	SetPosition(pos, m_scale);
+	CEffect::Create(pos + D3DXVECTOR3(0.f, 5.f, 0.f), m_scale * (float)m_nAbsorbBulletCnt / 22, D3DXCOLOR(0.4f, 0.4f, 1.f, 1.f), 1);
 }
 
 //*****************************************************************************

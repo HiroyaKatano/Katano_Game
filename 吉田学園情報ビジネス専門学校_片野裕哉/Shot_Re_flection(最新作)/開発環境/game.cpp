@@ -25,7 +25,7 @@
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
-
+#define ENEMY_SCALE (D3DXVECTOR3(70.f, 70.f, 0.f))
 
 //*****************************************************************************
 // 静的メンバ変数
@@ -193,7 +193,7 @@ void CGame::Update()
 	{
 		for (int nCnt = 0; nCnt < ENE_X_MAX; nCnt++)
 		{
-			m_pEnemy = CEnemy::Create(D3DXVECTOR3(1920.f*nCnt, 0.f, 0.0f), D3DXVECTOR3(50.f, 50.f, 0.0f),
+			m_pEnemy = CEnemy::Create(D3DXVECTOR3(1920.f*nCnt, 0.f, 0.0f), ENEMY_SCALE,
 				D3DXVECTOR3(cosf(fAngle) * 20.f*(-2 * nCnt + 1), sinf(fAngle) * 15.0f, 0.0f),
 				2, CEnemy::ENEMYTYPE_ZERO, CEnemy::ENEMYMOVETYPE_CROSS);
 		}
@@ -203,7 +203,7 @@ void CGame::Update()
 	{
 		for (int nCnt = 0; nCnt < ENE_X_MAX; nCnt++)
 		{
-			m_pEnemy = CEnemy::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (500.f * (nCnt - (0.5f * (ENE_X_MAX - 1)))), 0.f, 0.0f), D3DXVECTOR3(50.f, 50.f, 0.0f), D3DXVECTOR3(0.0f, 10.0f, 0.0f),
+			m_pEnemy = CEnemy::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (500.f * (nCnt - (0.5f * (ENE_X_MAX - 1)))), 0.f, 0.0f), ENEMY_SCALE, D3DXVECTOR3(0.0f, 10.0f, 0.0f),
 				0, CEnemy::ENEMYTYPE_TWO, CEnemy::ENEMYMOVETYPE_NONE);
 			//m_pEnemy = CEnemy::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (1000.f * (nCnt - (0.5f * (ENE_X_MAX - 1)))), 0.f, 0.0f), D3DXVECTOR3(50.f, 50.f, 0.0f), D3DXVECTOR3(0.0f, 10.0f, 0.0f),
 			//	0, CEnemy::ENEMYTYPE_ZERO, CEnemy::ENEMYMOVETYPE_NONE);
@@ -219,7 +219,7 @@ void CGame::Update()
 			{
 				//if (m_bLissajousOn == true)
 				//{
-					m_pEnemy = CEnemy::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (50.f * (nCnt - (0.5f * (ENE_X_MAX - 1)))), 0.f, 0.0f), D3DXVECTOR3(50.f, 50.f, 0.0f), D3DXVECTOR3((-0.5f + ((ENE_X_MAX + nCnt) % 2)), 0.5f, 0.0f),
+					m_pEnemy = CEnemy::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (50.f * (nCnt - (0.5f * (ENE_X_MAX - 1)))), 0.f, 0.0f), ENEMY_SCALE, D3DXVECTOR3((-0.5f + ((ENE_X_MAX + nCnt) % 2)), 0.5f, 0.0f),
 						0, CEnemy::ENEMYTYPE_ZERO, CEnemy::ENEMYMOVETYPE_LISSAJOUS);
 					if (nCnt % 2 == 0)
 					{
@@ -271,7 +271,7 @@ void CGame::Update()
 			{
 				//if (m_bLissajousOn == true)
 				//{
-					m_pEnemy = CEnemy::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (200.f * (nCnt - (0.5f * (ENE_X_MAX - 1)))), -50.f, 0.0f), D3DXVECTOR3(50.f, 50.f, 0.0f), D3DXVECTOR3((-0.5f + ((ENE_X_MAX + nCnt) % 2)), 0.5f, 0.0f),
+					m_pEnemy = CEnemy::Create(D3DXVECTOR3(SCREEN_WIDTH / 2 + (200.f * (nCnt - (0.5f * (ENE_X_MAX - 1)))), -50.f, 0.0f), ENEMY_SCALE, D3DXVECTOR3((-0.5f + ((ENE_X_MAX + nCnt) % 2)), 0.5f, 0.0f),
 						1, CEnemy::ENEMYTYPE_ONE, CEnemy::ENEMYMOVETYPE_LISSAJOUS);
 					if (nCnt % 2 == 0)
 					{
